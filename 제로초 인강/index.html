@@ -90,11 +90,13 @@
         cursor: pointer;
       }
       #header-hamburger > div {
+        position: relative;
         width: 26px;
         height: 26px;
         background-image: url("./sp_main.png");
         background-position: -335px -81px;
         background-size: 433px 412px;
+        z-index: 1;
       }
       #header-hamburger:hover {
         background-color: var(--color_option_bg);
@@ -110,6 +112,14 @@
         background-color: var(--color_option_bg);
         border-radius: 50%;
       }
+      .blind {
+        position: absolute;
+        clip: rect(0 0 0 0);
+        width: 1px;
+        height: 1px;
+        margin: -1px px;
+        overflow: hidden;
+      }
     </style>
   </head>
   <body>
@@ -118,6 +128,7 @@
         <div id="header">
           <button id="header-hamburger">
             <div></div>
+            <span class="blind">확장 영역</span>
           </button>
         </div>
         <div id="search"></div>
