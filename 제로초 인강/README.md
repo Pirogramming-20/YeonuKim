@@ -85,3 +85,26 @@
   - html은 트리 구조를 이룸.
   - 트리에서의 루트를 불러온다는 의미
   - 일반적으로 html 태그임.
+
+### 1-9 position
+
+- 기본적으로는 static
+  - 이외 relative, absolute, float, fixed 등이 있음.
+- relative
+  - 자신의 자리에서 조금씩 이동 가능
+  - static 기준으로 이동
+- absolute
+  - 기준점으로부터 떨어진 위치를 정할 수 있음.
+    - left, right, top, bottom
+  - 이때 기준점을 설정할 수 있음.
+    - static이 아닌 컴포넌트가 기준점이 됨.
+- fixed
+  - 위치를 고정할 수 있음.
+  - 스크롤 무시
+- sticky
+  - 초반에는 absolute
+  - 스크롤을 내리다보면 fixed 처리
+- relative, absolute 위주로 사용할 예정
+- pseudo element
+  - 실제로는 존재하지 않지만 디자인에서 주로 사용하는 가상의 상태
+  - before, after가 대표적임.
