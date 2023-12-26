@@ -79,30 +79,48 @@
         text-align: left;
         position: relative;
       }
-      #header-hamburger {
+      #header-hamburger,
+      #header-naverpay,
+      #header-talk,
+      #header-notice {
         position: absolute;
-        left: -10px;
-        top: 18px;
         display: inline-block;
         padding: 10px;
         background: none;
         border: none;
         cursor: pointer;
       }
-      #header-hamburger > div {
+      #header-hamburger {
+        left: -10px;
+        top: 18px;
+      }
+      #header-hamburger > div,
+      #header-naverpay > div,
+      #header-talk > div,
+      #header-notice > div {
         position: relative;
         width: 26px;
         height: 26px;
         background-image: url("./sp_main.png");
-        background-position: -335px -81px;
+
         background-size: 433px 412px;
         z-index: 1;
       }
-      #header-hamburger:hover {
+      #header-hamburger > div {
+        background-position: -335px -81px;
+      }
+
+      #header-hamburger:hover,
+      #header-naverpay:hover,
+      #header-talk:hover,
+      #header-notice:hover {
         background-color: var(--color_option_bg);
         border-radius: 50%;
       }
-      #header-hamburger:hover::before {
+      #header-hamburger:hover::before,
+      #header-naverpay:hover::before,
+      #header-talk:hover::before,
+      #header-notice:hover::before {
         position: absolute;
         content: "";
         left: 1px;
@@ -111,6 +129,30 @@
         height: 44px;
         background-color: var(--color_option_bg);
         border-radius: 50%;
+      }
+      #header-naverpay {
+        left: 42px;
+        top: 18px;
+        padding: 8px 10px;
+      }
+      #header-naverpay > div {
+        width: 32px;
+        height: 32px;
+        background-position: -295px -177px;
+      }
+      #header-talk {
+        right: 42px;
+        top: 18px;
+      }
+      #header-talk > div {
+        background-position: -335px -189px;
+      }
+      #header-notice {
+        right: -10px;
+        top: 18px;
+      }
+      #header-notice > div {
+        background-position: -335px -135px;
       }
       .blind {
         position: absolute;
@@ -129,6 +171,18 @@
           <button id="header-hamburger">
             <div></div>
             <span class="blind">확장 영역</span>
+          </button>
+          <button id="header-naverpay">
+            <div></div>
+            <span class="blind">네이버 페이</span>
+          </button>
+          <button id="header-talk">
+            <div></div>
+            <span class="blind">톡</span>
+          </button>
+          <button id="header-notice">
+            <div></div>
+            <span class="blind">알림</span>
           </button>
         </div>
         <div id="search"></div>
