@@ -31,3 +31,24 @@
   - body: 문서에 들어갈 정보
 - live server를 사용하면 더 편리하게 수정 사항 확인 가능
   - 파일 저장 시 자동으로 새로고침
+
+### 1-4 asset 확인하기
+
+- 파비콘 만들기
+  - 개발자 도구를 사용하여 파비콘 불러오기
+  - naver 서버에 필요한 파일 요청 → 필요한 asset을 모두 보내줌.
+    - html, css, 이미지 등 웹페이지를 만들기 위한 모든 정보
+  - https://www.naver.com/favicon.ico 등의 요청을 통해 불러올 수 있음.
+
+### 1-5 block/inline-block/inline
+
+- id
+  - id는 중복되면 안됨.
+  - html, css 상에서는 문제가 없을 수 있어도 js 상에서 문제 발생 가능
+- header, search, navigator, 본문으로 가로 자르기
+- block
+  - div는 block 속성 → width가 100% 모두 차지하고 있음.
+  - 이때 임의로 div 너비를 설정하면 나머지는 자동으로 margin 처리됨.
+  - inline-block으로 변경하면 margin이 자동으로 처리되지 않음.
+- inline은 width, height 모두 무시
+  - width, height를 설정하고 싶으면 inline-block 사용
