@@ -621,6 +621,38 @@
             flex: 1;
             padding: 18px 20px;
           }
+          #main-newsstand-top .dot::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background-color: #d3d5d7;
+            background-color: var(--color_dot_divider);
+            margin: 9px 7px 0;
+            border-radius: 50%;
+            vertical-align: 5px;
+          }
+          #main-newsstand-top .slash,
+          #main-newsstand-top .dot {
+            font-size: 1.6rem;
+            color: rgba(8, 8, 8, 0.5);
+            font-weight: 800;
+          }
+          #main-newsstand-top .slash {
+            position: relative;
+            padding-left: 26px;
+          }
+          #main-newsstand-top .slash::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 13px;
+            width: 1px;
+            height: 15px;
+            background-color: #d3d5d7;
+            background-color: var(--color_dot_divider);
+            transform: skewX(-15deg);
+          }
           #main-newsstand a {
             text-decoration: none;
           }
@@ -645,6 +677,82 @@
             padding: 12px 20px;
             background-color: var(--color_option_bg);
             border-radius: 4px;
+            font-size: 1.4rem;
+            line-height: 26px;
+          }
+          #main-newsstand-gray .left {
+            flex: 1;
+            display: flex;
+          }
+          #main-newsstand-gray .left > a:first-of-type::after {
+            content: "";
+            background: url("./sp_main.png");
+            background-size: 433px 412px;
+            background-position: -154px -201px;
+            background-repeat: no-repeat;
+            width: 9px;
+            height: 6px;
+            display: inline-block;
+            margin: 10px 0 0 5px;
+            vertical-align: 3px;
+          }
+          #main-newsstand-gray .left > a:first-of-type {
+            width: 85.5px;
+          }
+          #main-newsstand-gray .right {
+            display: flex;
+          }
+          #main-newsstand-gray .bold {
+            padding-left: 25px;
+            position: relative;
+          }
+          #main-newsstand-gray .bold::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 7px;
+            left: 12px;
+            width: 1px;
+            height: 12px;
+            background-color: #d3d5d7;
+            background-color: var(--color_dot_divider);
+          }
+          #main-newsstand-animation {
+            padding-left: 10px;
+            position: relative;
+          }
+          #main-newsstand-animation::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 7px;
+            left: 12px;
+            width: 1px;
+            height: 12px;
+            background-color: #d3d5d7;
+            background-color: var(--color_dot_divider);
+          }
+          #main-newsstand-animation > a:first-of-type {
+            position: relative;
+            top: -7px;
+          }
+          #main-newsstand-animation > a:first-of-type::after {
+            content: "";
+            display: inline-block;
+            width: 3px;
+            height: 3px;
+            background-color: #d3d5d7;
+            background-color: var(--color_dot_divider);
+            margin: 12px 6px 0 6px;
+            border-radius: 50%;
+            vertical-align: 5px;
+          }
+          #main-newsstand-animation a:last-of-type {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 400px;
+            display: inline-block;
+            overflow: hidden;
           }
           #main-newsstand-grid {
             display: grid;
@@ -661,6 +769,9 @@
             grid-gap: 1px;
           }
           #main-newsstand-grid > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100%;
             background-color: white;
           }
@@ -685,23 +796,25 @@
               <div id="main-newsstand-top">
                 <header>
                   <a href="#" class="bold">뉴스스탠드</a>
-                  <a href="#">언론사편집</a>
-                  <a href="#">엔터</a>
-                  <a href="#">스포츠</a>
-                  <a href="#">경제</a>
+                  <a href="#" class="dot">언론사편집</a>
+                  <a href="#" class="slash">엔터</a>
+                  <a href="#" class="slash">스포츠</a>
+                  <a href="#" class="slash">경제</a>
                 </header>
                 <div id="main-newsstand-gray">
-                  <div>
+                  <div class="left">
                     <a href="#">전체언론사</a>
-                    <a href="#">연합뉴스</a>
-                    <a href="#"
-                      >김연우 지금 힘들어 ㅠㅠ 김연우 지금 힘들어 ㅠㅠ 김연우
-                      지금 힘들어 ㅠㅠ 김연우 지금 힘들어 ㅠㅠ</a
-                    >
+                    <div id="main-newsstand-animation">
+                      <a href="#">연합뉴스</a>
+                      <a href="#"
+                        >김연우 지금 힘들어 ㅠㅠ 김연우 지금 힘들어 ㅠㅠ 김연우
+                        지금 힘들어 ㅠㅠ 김연우 지금 힘들어 ㅠㅠ</a
+                      >
+                    </div>
                   </div>
-                  <div>
+                  <div class="right">
                     <a href="#">뉴스스탠드</a>
-                    <a href="#">뉴스홈</a>
+                    <a href="#" class="bold">뉴스홈</a>
                   </div>
                 </div>
                 <div id="main-newsstand-grid">
