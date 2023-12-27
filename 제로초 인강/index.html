@@ -635,10 +635,34 @@
             color: rgba(8, 8, 8, 0.5);
             display: flex;
             justify-content: flex-start;
+            margin-bottom: 17px;
+            line-height: 23px;
           }
           #main-newsstand-gray {
             display: flex;
             justify-content: flex-start;
+            height: 50px;
+            padding: 12px 20px;
+            background-color: var(--color_option_bg);
+            border-radius: 4px;
+          }
+          #main-newsstand-grid {
+            display: grid;
+            height: 224px;
+            width: 790px;
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: repeat(6, 1fr);
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--color_border_in);
+            border-radius: 4px;
+            margin-top: 18px;
+            background-color: var(--color_border_in);
+            grid-gap: 1px;
+          }
+          #main-newsstand-grid > div {
+            height: 100%;
+            background-color: white;
           }
           #main-newsstand footer {
             border-top: 1px solid var(--color_border_in);
