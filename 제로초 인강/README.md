@@ -213,3 +213,37 @@
   - html의 폰트사이즈에서 몇 배인지
   - html의 폰트만 바꾸면 전체 폰트를 바꿔줄 수 있음.
 - 부모의 높이는 미리 지정할 필요 없음.
+
+### 3-1 시멘틱 태그
+
+- 자주 사용하는 부분은 시멘틱 태그로 나타낼 수 있음.
+  - div를 너무 많이 사용하면 파악이 어렵기 때문
+  - 광고는 aside, 섹션은 section 태그 사용
+- 속성 선택자
+  ```css
+  /* <a> elements with a title attribute */
+  a[title] {
+    color: purple;
+  }
+
+  /* <a> elements with an href matching "https://example.org" */
+  a[href="https://example.org"]
+  {
+    color: green;
+  }
+
+  /* <a> elements with an href containing "example" */
+  a[href*="example"] {
+    font-size: 2em;
+  }
+
+  /* <a> elements with an href ending ".org" */
+  a[href$=".org"] {
+    font-style: italic;
+  }
+
+  /* <a> elements whose class attribute contains the word "logo" */
+  a[class~="logo"] {
+    padding: 2px;
+  }
+  ```
