@@ -18,6 +18,7 @@
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,
           Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
         line-height: 1.5;
+        min-width: 1200px;
       }
       * {
         box-sizing: border-box;
@@ -187,7 +188,7 @@
         align-items: center;
         position: relative;
         padding: 50px 40px;
-        height: 78vh;
+        height: 580px;
         background-image: url(./simple-codelines.svg);
         background-position-x: center;
         background-position-y: 10%;
@@ -205,12 +206,6 @@
         display: inline-block;
         width: 605px;
         padding-right: 150px;
-      }
-      #log-in {
-        display: inline-block;
-        width: 430px;
-        height: 470px;
-        background-color: white;
       }
       #about-us-title {
         color: white;
@@ -235,7 +230,95 @@
             manage projects, and build software alongside 50 million developers.
           </p>
         </section>
-        <section id="log-in"></section>
+        <style>
+          #sign-in {
+            display: flex;
+            flex-direction: column;
+            width: 430px;
+            height: 470px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 6px;
+            gap: 16px;
+          }
+          .sign-in-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 390px;
+            gap: 16px;
+          }
+          .sign-in-input-wrapper {
+            display: inline-flex;
+            flex-direction: column;
+            width: 100%;
+            height: 66px;
+          }
+          .sign-in-input-wrapper > label {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #24292e;
+          }
+          .sign-in-input-wrapper > input {
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            border: 1px solid #e1e4e8;
+            border-radius: 5px;
+            background-color: transparent;
+            font-size: 1.6rem;
+            font-weight: 400;
+            outline: none;
+            box-shadow: inset 0 1px 0 rgba(225, 228, 232, 0.2);
+            padding: 10px;
+          }
+          .sign-in-warning {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+          }
+          #sign-in-button {
+            display: inline-block;
+            width: 100%;
+            height: 64px;
+            padding: 20px 32px;
+            margin-bottom: 16px;
+            text-align: center;
+            border-radius: 6px;
+            color: white;
+            background-color: #2ebc4f;
+            font-size: 1.6rem;
+            font-weight: 500;
+          }
+        </style>
+        <section id="sign-in">
+          <div class="sign-in-wrapper">
+            <div class="sign-in-input-wrapper">
+              <label for="username">Username</label>
+              <input id="username-input" type="text" placeholder="" />
+            </div>
+            <div class="sign-in-input-wrapper">
+              <label for="email">Email</label>
+              <input id="email-input" type="text" placeholder="" />
+            </div>
+            <div class="sign-in-input-wrapper">
+              <label for="password">Password</label>
+              <input id="password-input" type="text" placeholder="" />
+            </div>
+          </div>
+          <p class="sign-in-warning">
+            Make sure it's at least 15 characters OR at least 8 characters
+            including a number and a lowercase letter.
+            <a href="#">Learn more.</a>
+          </p>
+          <a id="sign-in-button"> Sign up for GitHub </a>
+          <p class="sign-in-warning">
+            By clicking “Sign up for GitHub”, you agree to our
+            <a href="#">Terms of Service</a> and
+            <a href="#">Privacy Statement</a>. We’ll occasionally send you
+            account related emails.
+          </p>
+        </section>
       </div>
     </main>
     <style>
@@ -243,15 +326,15 @@
         position: relative;
         left: 0;
         bottom: 0;
-        height: 22vh;
+        height: 21.5vh;
         padding: 50px 0;
         background-color: white;
       }
       footer > i {
         display: inline-block;
         position: absolute;
-        right: 4vw;
-        bottom: 1.7vh;
+        right: 180px;
+        bottom: 17px;
         width: 450px;
         height: 190px;
         background-image: url(./space.svg);
