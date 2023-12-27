@@ -220,6 +220,7 @@
   - div를 너무 많이 사용하면 파악이 어렵기 때문
   - 광고는 aside, 섹션은 section 태그 사용
 - 속성 선택자
+
   ```css
   /* <a> elements with a title attribute */
   a[title] {
@@ -247,3 +248,7 @@
     padding: 2px;
   }
   ```
+
+### 3-61 뉴스스탠드 제작
+
+- list 버튼에 해당하는 이미지를 찾지 못하여 어두워지는 애니메이션으로 대체
