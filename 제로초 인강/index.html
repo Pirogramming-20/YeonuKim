@@ -617,7 +617,8 @@
             display: flex;
             flex-flow: column;
           }
-          #main-newsstand-top {
+          #main-newsstand-top,
+          #main-shopping-top {
             flex: 1;
             padding: 18px 20px;
           }
@@ -632,17 +633,17 @@
             border-radius: 50%;
             vertical-align: 5px;
           }
-          #main-newsstand-top .slash,
-          #main-newsstand-top .dot {
+          .left-section .slash,
+          .left-section .dot {
             font-size: 1.6rem;
             color: rgba(8, 8, 8, 0.5);
             font-weight: 800;
           }
-          #main-newsstand-top .slash {
+          .left-section .slash {
             position: relative;
             padding-left: 26px;
           }
-          #main-newsstand-top .slash::before {
+          .left-section .slash::before {
             content: "";
             position: absolute;
             top: 4px;
@@ -653,16 +654,16 @@
             background-color: var(--color_dot_divider);
             transform: skewX(-15deg);
           }
-          #main-newsstand a {
+          .left-section a {
             text-decoration: none;
           }
-          #main-newsstand a:hover {
+          .left-section a:hover {
             text-decoration: underline;
           }
-          #main-newsstand a:visited {
+          .left-section a:visited {
             color: inherit;
           }
-          #main-newsstand header {
+          .left-section header {
             font-size: 1.6rem;
             color: rgba(8, 8, 8, 0.5);
             display: flex;
@@ -680,7 +681,7 @@
             font-size: 1.4rem;
             line-height: 26px;
           }
-          #main-newsstand-gray .left {
+          .left-section .left {
             flex: 1;
             display: flex;
           }
@@ -775,7 +776,7 @@
             height: 100%;
             background-color: white;
           }
-          #main-newsstand footer {
+          .left-section footer {
             border-top: 1px solid var(--color_border_in);
             padding: 10px 0 11px;
             font-size: 1.3rem;
@@ -787,7 +788,10 @@
             justify-content: center;
             position: relative;
           }
-          #main-newsstand footer .news {
+          .left-section footer .hot {
+            color: #9858f5;
+          }
+          footer .news {
             color: var(--color_news);
           }
           #main-newsstand footer .list,
@@ -829,11 +833,14 @@
             width: 20px;
             height: 20px;
           }
-          #main-newsstand footer .total {
+          .left-section footer .hot {
+            color: #9858f5;
+          }
+          .left-section footer .total {
             color: rgba(96, 96, 96, 0.5);
           }
-          #main-newsstand footer .prev,
-          #main-newsstand footer .next {
+          .left-section footer .prev,
+          .left-section footer .next {
             width: 36px;
             height: 36px;
             border: 1px solid var(--color_button_border);
@@ -846,8 +853,8 @@
             border-radius: 50%;
             cursor: pointer;
           }
-          #main-newsstand footer .prev::before,
-          #main-newsstand footer .next::before {
+          .left-section footer .prev::before,
+          .left-section footer .next::before {
             content: "";
             display: block;
             background-image: url(https://pm.pstatic.net/resources/asset/sp_main.d5b6c236.png);
@@ -858,15 +865,39 @@
             height: 12px;
             margin: auto;
           }
-          #main-newsstand footer .prev::before {
+          .left-section footer .prev::before {
             transform: rotate(180deg);
           }
-          #main-newsstand footer .text {
+          .left-section footer .text {
             padding: 0 16px;
-            width: 156px;
+            min-width: 156px;
+          }
+          .left-section footer .hot {
+            color: #9858f5;
           }
           #main-shopping {
             height: 560px;
+            display: flex;
+            flex-flow: column;
+          }
+          #main-shopping-top {
+            padding-top: 19px;
+          }
+          #main-shopping footer .text {
+            min-width: 176px;
+          }
+          #main-shopping-gray {
+            display: flex;
+          }
+          #main-shopping-gray .left {
+            width: 668px;
+            display: flex;
+            background-color: var(--color_option_bg);
+            padding: 15px 20px 14px;
+          }
+          #main-shopping-gray .right {
+            margin-left: auto;
+            padding: 10px 0;
           }
           #main-weather {
             height: 236px;
@@ -878,7 +909,7 @@
         <main id="main">
           <div id="main-left">
             <aside id="main-left-ad"></aside>
-            <section id="main-newsstand">
+            <section id="main-newsstand" class="left-section">
               <div id="main-newsstand-top">
                 <header>
                   <a href="#" class="bold">뉴스스탠드</a>
@@ -946,7 +977,47 @@
                 </button>
               </footer>
             </section>
-            <section id="main-shopping"></section>
+            <section id="main-shopping" class="left-section">
+              <div id="main-shopping-top">
+                <header>
+                  <a href="#" class="bold">쇼핑</a>
+                  <a href="#" class="slash">맨즈</a>
+                  <a href="#" class="slash">원쁠딜</a>
+                  <a href="#" class="slash">쇼핑라이브</a>
+                </header>
+                <div id="main-shopping-gray">
+                  <div class="left">
+                    <a href="#">오늘의 혜택</a>
+                    <div id="main-shopping-animation">
+                      <a href="#"
+                        >김연우 지금 힘들어 ㅠㅠ 김연우 지금 힘들어 ㅠㅠ 김연우
+                        지금 힘들어 ㅠㅠ 김연우 지금 힘들어 ㅠㅠ</a
+                      >
+                    </div>
+                  </div>
+                  <div class="right">
+                    <span>1</span>
+                    <span>/18</span>
+                    <button class="prev">
+                      <span class="blind">이전페이지</span>
+                    </button>
+                    <button class="next">
+                      <span class="blind">다음페이지</span>
+                    </button>
+                  </div>
+                </div>
+                <div id="main-shopping-grid"></div>
+              </div>
+              <footer>
+                <button class="prev"><span class="blind">이전</span></button>
+                <div class="text">
+                  <span class="hot">쇼핑핫아이템 </span>
+                  &nbsp;더보기&nbsp;1
+                  <span class="total">/4</span>
+                </div>
+                <button class="next"><span class="blind">다음</span></button>
+              </footer>
+            </section>
           </div>
           <div id="main-right">
             <section id="main-login">
