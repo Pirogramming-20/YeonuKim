@@ -230,11 +230,24 @@
             padding-left: 10px;
             justify-content: center;
             align-items: center;
+            position: relative;
           }
           #search-svg > svg {
             width: 24px;
             height: 24px;
             fill: #03c75a;
+          }
+          #seach-svg::after {
+            display: none;
+          }
+          #search > form:focus-within #search-svg::after {
+            position: absolute;
+            right: 0;
+            top: 18px;
+            content: "";
+            width: 1px;
+            height: 22px;
+            background-color: var(--color_border_in);
           }
           #search-right {
             display: inline-block;
