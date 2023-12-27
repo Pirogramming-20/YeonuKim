@@ -68,6 +68,11 @@
         margin: 0;
         padding: 0;
       }
+      button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
       #wrap {
         text-align: center;
       }
@@ -192,7 +197,7 @@
         </div>
         <style>
           #search > form {
-            display: inline-block;
+            display: inline-flex;
             width: 708px;
             height: 60px;
             border: 1px solid #03c75a;
@@ -209,11 +214,13 @@
             outline: none;
           }
           #search-svg {
-            display: inline-block;
+            display: inline-flex;
             width: 68px;
             margin-right: 12px;
             height: 100%;
             padding-left: 10px;
+            justify-content: center;
+            align-items: center;
           }
           #search-svg > svg {
             width: 24px;
@@ -245,8 +252,8 @@
           }
           #search-button {
             display: inline-block;
-            width: 68px;
-            margin-left: 12px;
+            width: 62px;
+            margin-left: 7px;
             height: 100%;
             padding-right: 10px;
           }
@@ -254,6 +261,12 @@
             width: 24px;
             height: 24px;
             fill: #03c75a;
+          }
+          #search-right {
+            display: flex;
+            flex: 1;
+            align-items: stretch;
+            justify-content: flex-end;
           }
         </style>
         <div id="search">
