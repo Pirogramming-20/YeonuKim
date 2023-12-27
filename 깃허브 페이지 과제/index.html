@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.png" />
+    <link rel="stylesheet" type="text/css" href="./reset.css " />
+    <link rel="stylesheet" type="text/css" href="./style.css " />
+    <title>GitHub: Where the world builds software · GitHub</title>
+  </head>
+  <body>
+    <style>
+      html {
+        height: 100vh;
+        font-size: 10px;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,
+          Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+        line-height: 1.5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      #header-wrapper {
+        background-color: transparent;
+        display: inline-flex;
+        width: 100%;
+        height: 72px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        justify-content: center;
+      }
+      header {
+        background-color: transparent;
+        width: 1200px;
+        padding: 0 20px;
+        display: inline-flex;
+        justify-content: space-between;
+      }
+      .blind {
+        position: absolute;
+        clip: rect(0 0 0 0);
+        width: 1px;
+        height: 1px;
+        margin: -1px px;
+        overflow: hidden;
+      }
+      #header-left,
+      #header-right {
+        display: inline-flex;
+        height: 100%;
+        justify-content: left;
+        align-items: center;
+      }
+      #header-main-icon {
+        display: inline-block;
+        cursor: pointer;
+        width: 31px;
+        height: 32px;
+        background-color: red;
+        margin-right: 25px;
+      }
+      #header-right > ul {
+        display: inline-flex;
+        width: 0.6rem;
+        height: 100%;
+        line-height: 1.5;
+      }
+      .header-menu {
+        display: inline;
+        padding: 0 6px;
+        font-size: 1.6rem;
+        color: white;
+      }
+      .header-menu::after {
+        content: "";
+      }
+    </style>
+    <div id="header-wrapper">
+      <header>
+        <div id="header-left">
+          <a id="header-main-icon" href="#">
+            <i></i>
+          </a>
+          <ul>
+            <li class="header-menu">
+              <a><span>Why Github?</span></a>
+              <i class="down-arrow"></i>
+            </li>
+            <li class="header-menu">
+              <a><span>Team</span></a>
+              <i class="down-arrow blind"></i>
+            </li>
+            <li class="header-menu">
+              <a><span>Enterprise</span></a>
+              <i class="down-arrow blind"></i>
+            </li>
+            <li class="header-menu">
+              <a><span>Explore</span></a>
+              <i class="down-arrow"></i>
+            </li>
+            <li class="header-menu">
+              <a><span>Marketplace</span></a>
+              <i class="down-arrow blind"></i>
+            </li>
+            <li class="header-menu">
+              <a><span>Pricing</span></a>
+              <i class="down-arrow"></i>
+            </li>
+          </ul>
+        </div>
+        <style>
+          #header-search {
+            width: 240px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.125);
+            display: flex;
+            padding: 5px 10px;
+            border-radius: 0.6rem;
+            position: relative;
+          }
+          #search-input {
+            width: 201px;
+            height: 26px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.5);
+          }
+          #search-input::placeholder {
+            color: var(--color_border_in);
+          }
+          #search-button {
+            display: inline-block;
+            width: 19px;
+            height: 26px;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+          }
+          #header-sign-in,
+          #header-sign-up {
+            color: var(--white);
+            font-size: 1.6rem;
+            color: white;
+          }
+          #header-sign-in {
+            margin: 0 1.6rem;
+          }
+          #header-sign-up {
+            border-radius: 0.6rem;
+            border: 1px solid #d1d5da;
+            padding: 4px 8px;
+          }
+        </style>
+        <div id="header-right">
+          <div id="header-search">
+            <form action="">
+              <label for="search-input" class="blind">Search bar</label>
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Search Github"
+              />
+              <button id="search-button">
+                <span class="blind">search-button</span>
+              </button>
+            </form>
+          </div>
+          <a href="#" id="header-sign-in">
+            <span>Sign in</span>
+          </a>
+          <a href="#" id="header-sign-up">
+            <span>Sign up</span>
+          </a>
+        </div>
+      </header>
+    </div>
+    <style>
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 50px 40px;
+        height: 78vh;
+        background-image: url(./simple-codelines.svg);
+        background-position-x: center;
+        background-position-y: 10%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: rgb(43, 49, 55);
+      }
+      #contents-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 15px;
+      }
+      #about-us {
+        display: inline-block;
+        width: 605px;
+        padding-right: 150px;
+      }
+      #log-in {
+        display: inline-block;
+        width: 430px;
+        height: 470px;
+        background-color: white;
+      }
+      #about-us-title {
+        color: white;
+        font-size: 6.4rem;
+        font-weight: 500;
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+      #about-us-contents {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 2rem;
+        font-weight: 400;
+      }
+    </style>
+    <main>
+      <div id="contents-wrapper">
+        <section id="about-us">
+          <p id="about-us-title">Built for <br />developers</p>
+          <p id="about-us-contents">
+            GitHub is a development platform inspired by the way you work. From
+            <b>open source</b> to <b>business</b>, you can host and review code,
+            manage projects, and build software alongside 50 million developers.
+          </p>
+        </section>
+        <section id="log-in"></section>
+      </div>
+    </main>
+    <style>
+      footer {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        height: 22vh;
+        padding: 50px 0;
+        background-color: white;
+      }
+      footer > i {
+        display: inline-block;
+        position: absolute;
+        right: 4vw;
+        bottom: 1.7vh;
+        width: 450px;
+        height: 190px;
+        background-image: url(./space.svg);
+        background-position-x: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    </style>
+    <footer>
+      <i></i>
+    </footer>
+  </body>
+</html>
