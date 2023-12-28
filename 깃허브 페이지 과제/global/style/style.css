@@ -222,6 +222,7 @@ main {
   background-color: #2ebc4f;
   font-size: 1.6rem;
   font-weight: 500;
+  border: none;
 }
 footer {
   position: relative;
