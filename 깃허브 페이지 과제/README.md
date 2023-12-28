@@ -7,6 +7,13 @@
   - 아래 방향 화살표(global/img/down_chevron.png) → flaticon에서 다운로드
   - https://www.flaticon.com/search?word=arrow
 
+## 추가 구현 내용
+
+- Nav bar Sign in, Sign up 클릭 가능 (a 태그 사용)
+- 메인페이지 오른쪽 input 클릭 시 input 주변에 파란색 box shadow 배경 보이게 함.
+  - 배경색 바꾸라는 것이 정확히 어떤 것인지 몰라 원래 페이지처럼 input 주변 배경색 변경
+- Sign up for github button 태그 사용하여 구현
+
 ## 구현 상세
 
 - min width 설정
