@@ -1,0 +1,45 @@
+main {
+  padding: 70px 16px 0;
+}
+
+.interview {
+  height: 138px;
+  padding: 16px;
+  align-items: start;
+  cursor: pointer;
+}
+.interview-info-wrapper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 16px;
+}
+.interview-thumbnail {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: white;
+}
+.interview-info {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+}
+.interview-name {
+  font-size: 1.8rem;
+}
+.interview-major {
+  font-size: 1.4rem;
+  padding: 6px 8px;
+  background-color: #c54422;
+  border-radius: 5px;
+}
+.first-major {
+  background-color: #2188b6;
+}
+.double-major {
+  background-color: #35a67b;
+}
