@@ -131,5 +131,5 @@ main {
 }
 .interview:hover .interview-thumbnail > img,
 .program:hover .program-thumbnail > img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
