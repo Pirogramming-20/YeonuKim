@@ -1,14 +1,25 @@
 @media screen and (max-width: 700px) {
   #sidebar {
-    width: 300px;
+    width: 250px;
     height: calc(100vh - var(--header-height));
-    background-color: gray;
+    background-color: var(--bg-gray);
     position: fixed;
     top: var(--header-height);
     right: -300px;
     transition: 0.3s;
+    padding: 70px 40px 130px;
   }
   #hamburger-icon input:checked ~ .sidebar {
     right: 0;
+  }
+  #sidebar > ul {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 4rem;
+    font-size: 1.8rem;
+  }
+  #sidebar > ul > li {
+    cursor: pointer;
   }
 }
