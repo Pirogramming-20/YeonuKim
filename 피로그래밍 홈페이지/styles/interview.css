@@ -3,7 +3,6 @@ main {
 }
 
 .interview {
-  height: 138px;
   padding: 16px;
   align-items: start;
   cursor: pointer;
@@ -16,8 +15,8 @@ main {
 }
 .interview-thumbnail {
   display: inline-block;
-  width: 70px;
   height: 70px;
+  width: 70px;
   border-radius: 50%;
   background-color: white;
 }
@@ -42,4 +41,26 @@ main {
 }
 .double-major {
   background-color: #35a67b;
+}
+.interview-comment {
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 600px) {
+  #interview-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 780px) {
+  main {
+    width: min(1200px, 100%);
+    padding: 70px 40px 0;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 850px) {
+  #interview-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

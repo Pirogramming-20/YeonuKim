@@ -100,7 +100,8 @@
 }
 @media screen and (min-width: 780px) {
   main {
-    margin: 0 40px;
-    padding: 90px 40px 50px;
+    width: min(1200px, 100%);
+    padding: 0 40px;
+    margin: auto;
   }
 }

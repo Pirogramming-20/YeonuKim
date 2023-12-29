@@ -44,6 +44,7 @@ main {
 #program-wrapper,
 #interview-wrapper {
   display: grid;
+  grid-template-columns: 1fr;
   place-items: center;
   width: 100%;
   grid-gap: 16px;
