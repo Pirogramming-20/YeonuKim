@@ -82,7 +82,6 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 300px;
   padding: 5px 0;
   gap: 10px;
 }
@@ -119,11 +118,26 @@ main {
   background-color: #2188b6;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 500px) {
   .program-distributor {
     width: 100%;
   }
+}
+
+@media screen and (min-width: 650px) {
+  .program {
+    flex-direction: row;
+    padding: 16px;
+    justify-content: start;
+  }
+  .program-thumbnail {
+    width: 150px;
+    height: 110px;
+  }
   .program-description-wrapper {
-    width: 100%;
+    align-items: start;
+  }
+  .program-distributor {
+    margin-top: 15px;
   }
 }
