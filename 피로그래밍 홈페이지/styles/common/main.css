@@ -85,11 +85,51 @@ main {
   background-color: var(--bg-5);
   transition: 0.3s;
 }
-
-.interview:hover .main-hamburger:first-child {
+.main-hamburger:last-child {
+  margin-left: auto;
+}
+.interview:hover .main-hamburger:first-child,
+.program:hover .main-hamburger:first-child {
   width: 50%;
 }
-.interview:hover .main-hamburger:last-child {
+.interview:hover .main-hamburger:last-child,
+.program:hover .main-hamburger:last-child {
   width: 50%;
   margin-left: auto;
+}
+.interview-thumbnail {
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}
+.program-thumbnail {
+  display: inline-block;
+  width: 150px;
+  height: 110px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: white;
+}
+.interview-thumbnail > img {
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+.program-thumbnail > img {
+  display: inline-block;
+  width: 150px;
+  height: 110px;
+  object-fit: contain;
+  transition: 0.3s;
+}
+.interview:hover .interview-thumbnail > img,
+.program:hover .program-thumbnail > img {
+  transform: scale(1.05);
 }

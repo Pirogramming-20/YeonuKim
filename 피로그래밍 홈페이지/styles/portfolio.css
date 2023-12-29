@@ -17,22 +17,6 @@
   background-color: var(--bg-gray);
   border-radius: 8px;
 }
-.main-hamburger-wrapper {
-  display: inline-block;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 20px;
-  height: 20px;
-  background-color: yellow;
-}
-.program-thumbnail {
-  display: inline-block;
-  width: min(75%, 250px);
-  height: 160px;
-  border-radius: 8px;
-  background-color: white;
-}
 .program-description-wrapper {
   display: inline-flex;
   flex-direction: column;
@@ -101,7 +85,7 @@
 @media screen and (min-width: 780px) {
   main {
     width: min(1200px, 100%);
-    padding: 0 40px;
+    padding: 90px 40px 50px;
     margin: auto;
   }
 }
