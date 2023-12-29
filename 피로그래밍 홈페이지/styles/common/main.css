@@ -68,6 +68,7 @@ main {
   gap: 16px;
   background-color: var(--bg-gray);
   border-radius: 8px;
+  cursor: pointer;
 }
 .main-hamburger-wrapper {
   display: inline-flex;

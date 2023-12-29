@@ -1,1 +1,33 @@
-# 피로그래밍 20기 반응형 세션
+## 구현 기능
+
+- 공통
+  - hover effect 구현
+    - 박스 2px 올라감.
+    - 햄버거 버튼 찌그러짐.
+    - 이미지 확대
+    - 커서 올리면 포인터가 나타나도록 수정
+- portfolio.html
+  - moblie first로 구현
+  - 반응형
+    - min-width: 500px
+      - 제작자 명단이 3명, 2명 순으로 wrapping 됨.
+    - min-width: 650px
+      - 태블릿 기준 배치로 변화
+      - 이미지가 왼쪽, 설명이 오른쪽에 위치하도록 배치 변화
+    - min-width: 780
+      - 최대 너비 1200px로 고정
+  - 전공자/비전공자/복수전공자에 따른 색 변화
+- interview.html
+  - moblie first로 구현
+  - 반응형
+    - min-width: 600px
+      - 2단으로 레이아웃 변경
+    - min-width: 780px
+      - 최대 너비 1200px로 고정
+    - min-width: 850px
+      - 2단으로 레이아웃 변경
+- 추가 구현
+  - 사이드바 디자인 수정
+  - 헤더
+    - 가운데에 위치하도록 수정
+    - 검정 그라데이션 background-color 삽입
