@@ -44,6 +44,7 @@ main {
 
 #program-wrapper {
   display: grid;
+  place-items: center;
   width: 100%;
   grid-gap: 16px;
 }
@@ -139,5 +140,11 @@ main {
   }
   .program-distributor {
     margin-top: 15px;
+  }
+}
+@media screen and (min-width: 780px) {
+  main {
+    margin: 0 40px;
+    padding: 90px 40px 50px;
   }
 }
