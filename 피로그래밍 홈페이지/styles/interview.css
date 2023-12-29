@@ -18,8 +18,21 @@ main {
   height: 70px;
   width: 70px;
   border-radius: 50%;
-  background-color: white;
+  object-fit: cover;
+  overflow: hidden;
 }
+.interview-thumbnail > img {
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+.interview:hover .interview-thumbnail > img {
+  transform: scale(1.2);
+}
+
 .interview-info {
   display: inline-flex;
   flex-direction: column;
