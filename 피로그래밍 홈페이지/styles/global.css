@@ -11,6 +11,9 @@ html {
 }
 
 body {
+  background-color: black;
+  color: white;
+  font-size: 1.6rem;
   font-family: "NEXON Lv1 Gothic OTF", -apple-system, BlinkMacSystemFont,
     system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
     "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
