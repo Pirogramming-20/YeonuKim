@@ -1,3 +1,13 @@
-const data = readTextFile("../data/data.json");
-let dataOrigin = JSON.parse(JSON.stringify(dataFile));
-console.log(dataOrigin);
+function loadItems() {
+  return fetch("data/data.json")
+    .then((response) => response.json())
+    .then((json) => json.items);
+}
+
+loadItems()
+  .then((items) => {
+    console.log(items);
+    displayItems(items);
+    setEventListeners(items);
+  })
+  .catch(console.log);
