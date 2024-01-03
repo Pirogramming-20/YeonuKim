@@ -40,33 +40,26 @@
 
 - promise를 사용하여 함수 처리
 
-<aside>
-📎 promise란?
-- 자바스크립트는 기본적으로 동기임.
-- 비동기 함수들은 어떻게 처리하지? →
-
+```
+promise란?
 1. 동기와 비동기
-
 - 자바스크립트는 기본적으로 동기 언어
 - 비동기 함수들은 Web APIs를 사용하여 처리함.
 - 처리된 비동기 함수들은 callback을 사용하여 처리함. (Task queue, event loop 등의 개념은 생략, 대강 call back이 들어오는 순서대로 동기 처리 됨.)
 
-1. Callback 함수란?
-
+2. Callback 함수란?
 - 함수의 인자로 들어가는 함수
 - 이때 비동기 처리에 사용되는 callback 함수를 비동기콜백이라고 함.
 
-1. Callback 지옥
-
+3. Callback 지옥
 - callback을 계속 사용하면 가독성이 매우 떨어지게 됨.
 - 콜백 안에 콜백 안에 콜백 …
-- 유지 보수의 어려움. → callback 지옥
+- 유지 보수의 어려움. →  callback 지옥
 
-1. Promise
-
+4. Promise
 - 콜백함수의 가독성을 높여줌.
 - then을 사용하여 callback 안에 callback을 넣지 않아도 작동할 수 있도록 함.
-</aside>
+```
 
 ### Display
 
