@@ -24,6 +24,23 @@ let inputValues = [];
 let inputErrFlag = false;
 
 for (const sendBtn of sendBtns) {
+  // if press enter, click sendBtn
+  input1.addEventListener("keypress", (event) => {
+    if (event.code === "Enter") {
+      sendBtn.click();
+    }
+  });
+  input2.addEventListener("keypress", (event) => {
+    if (event.code === "Enter") {
+      sendBtn.click();
+    }
+  });
+  input3.addEventListener("keypress", (event) => {
+    if (event.code === "Enter") {
+      sendBtn.click();
+    }
+  });
+
   // Get input and valid check
   sendBtn.addEventListener("click", () => {
     inputValues = [
