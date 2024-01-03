@@ -40,7 +40,7 @@ nav {
 }
 .button-wrapper {
   display: inline-flex;
-  width: 50%;
+  width: 100%;
   justify-content: center;
   gap: 1.6rem;
   margin-bottom: 0.8rem;
@@ -62,6 +62,7 @@ nav {
   transition: ease-in-out 0.2s;
   font-size: var(--btn-font-size);
   cursor: pointer;
+  border: none;
 }
 #blue-button {
   background-color: var(--color-blue);
