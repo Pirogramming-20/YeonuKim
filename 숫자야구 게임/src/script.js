@@ -33,7 +33,7 @@ for (const sendBtn of sendBtns) {
     ];
 
     for (const value of inputValues) {
-      if (value < 0 || value > 9) {
+      if (value < 0 || value > 9 || isNaN(value)) {
         inputErrFlag = true;
         break;
       }
