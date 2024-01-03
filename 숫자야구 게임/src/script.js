@@ -41,11 +41,11 @@ for (const sendBtn of sendBtns) {
     }
     if (!inputErrFlag) {
       check_numbers(inputValues);
-      // Reset input
-      input1.value = null;
-      input2.value = null;
-      input3.value = null;
     }
+    // Reset input
+    input1.value = null;
+    input2.value = null;
+    input3.value = null;
   });
 }
 
@@ -71,11 +71,11 @@ function check_numbers(inputValues) {
 
   tryNum--;
   if (tryNum == 0) {
-    displayFail();
+    displayEnd("fail");
     console.log("Fail");
     return;
   } else if (strike == 3) {
-    displaySuccess();
+    displayEnd("success");
     console.log("Success");
   } else {
     displayResult(inputValues, strike, ball);
@@ -145,12 +145,10 @@ function displayResult(inputValues, strike, ball) {
   }
 }
 
-function displaySuccess() {
-  const container = document.querySelector(".result-display");
-  container.insertAdjacentHTML(
-    "beforeend",
-    `<img id="success-img" src="assets/img/success.png" />`
-  );
+function displayEnd(result) {
+  const End = document.getElementById("game-result-img");
+  console.log(End);
+  End.src = `./assets/img/${result}.png`;
 }
 
 function displayFail() {
