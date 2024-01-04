@@ -22,6 +22,7 @@ const input3 = document.getElementById("number3");
 // let inputValues = [];
 let inputErrFlag = false;
 
+input1.focus();
 for (const sendBtn of sendBtns) {
   // if press enter, click sendBtn, click sendBtn
   input1.addEventListener("keypress", (event) => {
@@ -85,6 +86,8 @@ for (const sendBtn of sendBtns) {
     input1.value = null;
     input2.value = null;
     input3.value = null;
+
+    input1.focus();
   });
 }
 
