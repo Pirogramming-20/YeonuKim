@@ -12,7 +12,6 @@ for (let i = 0; i < 3; i++) {
   answers.push(numList[idx]);
   numList = numList.filter((item) => item != numList[idx]);
 }
-console.log(answers);
 
 // game start!
 // if press enter, we can click button "확인하기"
@@ -20,11 +19,11 @@ const sendBtns = document.getElementsByClassName("submit-button");
 const input1 = document.getElementById("number1");
 const input2 = document.getElementById("number2");
 const input3 = document.getElementById("number3");
-let inputValues = [];
+// let inputValues = [];
 let inputErrFlag = false;
 
 for (const sendBtn of sendBtns) {
-  // if press enter, click sendBtn
+  // if press enter, click sendBtn, click sendBtn
   input1.addEventListener("keypress", (event) => {
     if (event.code === "Enter") {
       sendBtn.click();
@@ -41,9 +40,17 @@ for (const sendBtn of sendBtns) {
     }
   });
 
+  // if press arrow button, click sendBtn
+  input1.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") input2.focus();
+  });
+  input2.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") input3.focus();
+  });
+
   // Get input and valid check
   sendBtn.addEventListener("click", () => {
-    inputValues = [
+    let inputValues = [
       parseInt(input1.value),
       parseInt(input2.value),
       parseInt(input3.value),
@@ -69,9 +76,8 @@ for (const sendBtn of sendBtns) {
 function check_numbers(inputValues) {
   let strike = 0;
   let ball = 0;
-  console.log(answers);
-  console.log(inputValues);
   // Check ball and strike
+  if (inputValues == undefined) return;
   for (const value of inputValues) {
     for (const answer of answers) {
       if (value == answer) {
@@ -83,25 +89,21 @@ function check_numbers(inputValues) {
       }
     }
   }
-  console.log(strike);
-  console.log(ball);
 
   tryNum--;
   if (tryNum == 0) {
     displayEnd("fail");
-    console.log("Fail");
     return;
   } else if (strike == 3) {
     displayEnd("success");
-    console.log("Success");
   } else {
     displayResult(inputValues, strike, ball);
-    console.log(`Strike: ${strike}, Ball: ${ball}`);
   }
 }
 
 function displayResult(inputValues, strike, ball) {
   const container = document.querySelector(".result-display");
+  if (inputValues == undefined) return;
   if (strike == 0 && ball == 0) {
     container.insertAdjacentHTML(
       "afterbegin",
@@ -164,7 +166,6 @@ function displayResult(inputValues, strike, ball) {
 
 function displayEnd(result) {
   const End = document.getElementById("game-result-img");
-  console.log(End);
   End.src = `./assets/img/${result}.png`;
 }
 
