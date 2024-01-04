@@ -35,11 +35,8 @@ class Student:
     def getFinalScore(self):
         return self.__finalScore
     
-james = Student("james", 32, 81)
-print(james.getName())
-print(james.getMidScore())
-print(james.getFinalScore())
 #학생 정보를 저장할 변수 초기화
+studentList = []
 print("*Menu*******************************")
 print("1. Inserting students Info(name score1 score2)")
 print("2. Grading")
@@ -52,8 +49,22 @@ while True :
     if choice == "1":
         #학생 정보 입력받기
         #예외사항 처리(데이터 입력 갯수, 이미 존재하는 이름, 입력 점수 값이 양의 정수인지)
-        #예외사항이 아닌 입력인 경우 1번 함수 호출 
-        pass
+        #예외사항이 아닌 입력인 경우 1번 함수 호출
+        userinput = input("Enter name mid-score final-score: ").split()
+        print(userinput)
+        if(len(userinput) != 3):
+            print("Num of data is not 3!")
+        elif(userinput[1].find('-') != -1 or userinput[1].find('.') != -1 or userinput[2].find('-') != -1 or userinput[2].find('.') !=-1):
+            print("Score is not positive integer!")
+        else:
+            name = userinput[0]
+            midScore = int(userinput[1])
+            finalScore = int(userinput[2])
+            for student in studentList:
+                if(student.getName() == name):
+                    print("Already exist name!")
+                else:
+                    insertStudent(name, midScore, finalScore)
 
     elif choice == "2" :
         #예외사항 처리(저장된 학생 정보의 유무)
