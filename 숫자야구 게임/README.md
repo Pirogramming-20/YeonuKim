@@ -1,4 +1,7 @@
-# JS 숫자야구 과제
+## 야구게임 만들기
 
-### 노션 설명 페이지
-https://lovely-part-078.notion.site/JS-be6f25c3ed3b47cab139cd9935b82734?pvs=4
+### 추가 기능 구현
+
+- 엔터키 누르면 submit
+- input에서 방향키 사용하여 위치 조정 가능
+  - 왼쪽 이동: 이동하는 곳의 input 값이 비어있을 때만 동작
