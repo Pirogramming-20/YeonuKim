@@ -81,6 +81,7 @@ for (const sendBtn of sendBtns) {
     if (!inputErrFlag) {
       check_numbers(inputValues);
     }
+    saveItems();
 
     // Reset input
     input1.value = null;
@@ -193,4 +194,16 @@ function displayFail() {
     "beforeend",
     `<img id="success-img" src="assets/img/fail.png" />`
   );
+}
+
+// Add Records in json file
+function loadItems() {
+  return fetch("data/data.json")
+    .then((response) => response.json())
+    .then((json) => json.items);
+}
+
+function saveItems() {
+  const records = fetch("data/data.json");
+  console.log(records);
 }
