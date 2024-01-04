@@ -1,0 +1,83 @@
+#함수 이름은 변경 가능합니다.
+
+##############  menu 1
+def insertStudent() :
+    #사전에 학생 정보 저장하는 코딩 
+    pass
+
+##############  menu 2
+def grading() :
+    #학점 부여 하는 코딩
+    pass
+
+##############  menu 3
+def printStudent() :
+    #출력 코딩
+    pass
+
+##############  menu 4
+def deleteStudent():
+    #학생 정보 삭제하는 코딩
+    pass
+
+class Student:
+    def __init__(self, name, midScore, finalScore):
+        self.__name = name
+        self.__midScore = midScore
+        self.__finalScore = finalScore
+    
+    def getName(self):
+        return self.__name
+    
+    def getMidScore(self):
+        return self.__midScore
+    
+    def getFinalScore(self):
+        return self.__finalScore
+    
+james = Student("james", 32, 81)
+print(james.getName())
+print(james.getMidScore())
+print(james.getFinalScore())
+#학생 정보를 저장할 변수 초기화
+print("*Menu*******************************")
+print("1. Inserting students Info(name score1 score2)")
+print("2. Grading")
+print("3. Printing students Info")
+print("4. Deleting students Info")
+print("5. Exit program")
+print("*************************************")
+while True :
+    choice = input("Choose menu 1, 2, 3, 4, 5 : ")
+    if choice == "1":
+        #학생 정보 입력받기
+        #예외사항 처리(데이터 입력 갯수, 이미 존재하는 이름, 입력 점수 값이 양의 정수인지)
+        #예외사항이 아닌 입력인 경우 1번 함수 호출 
+        pass
+
+    elif choice == "2" :
+        #예외사항 처리(저장된 학생 정보의 유무)
+        #예외사항이 아닌 경우 2번 함수 호출
+        #"Grading to all students." 출력
+        pass
+
+    elif choice == "3" :
+        #예외사항 처리(저장된 학생 정보의 유무, 저장되어 있는 학생들의 학점이 모두 부여되어 있는지)
+        #예외사항이 아닌 경우 3번 함수 호출
+        pass
+
+    elif choice == "4" :
+        #예외사항 처리(저장된 학생 정보의 유무)
+        #예외사항이 아닌 경우, 삭제할 학생 이름 입력 받기
+        #입력 받은 학생의 존재 유무 체크 후, 없으면 "Not exist name!" 출력
+        #있으면(예를 들어 kim 이라 하면), 4번 함수 호출 후에 "kim student information is deleted." 출력
+        pass
+
+    elif choice == "5" :
+        #프로그램 종료 메세지 출력
+        #반복문 종료
+        pass
+
+    else :
+        #"Wrong number. Choose again." 출력
+        pass
