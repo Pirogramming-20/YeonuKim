@@ -59,13 +59,28 @@ for (const sendBtn of sendBtns) {
     for (const value of inputValues) {
       if (value < 0 || value > 9 || isNaN(value)) {
         inputErrFlag = true;
+        alert("0~9까지의 값을 입력해주세요.");
         break;
       }
       inputErrFlag = false;
     }
+
+    const inputSet = new Set(inputValues);
+    console.log(answers);
+    console.log(inputValues);
+    console.log(inputSet);
+    console.log(inputValues.length);
+    console.log(inputSet.size);
+    if (inputErrFlag == false && inputSet.size !== inputValues.length) {
+      alert("중복되지 않는 값을 입력해주세요.");
+      inputErrFlag = true;
+      console.log("Check!");
+    }
+
     if (!inputErrFlag) {
       check_numbers(inputValues);
     }
+
     // Reset input
     input1.value = null;
     input2.value = null;
