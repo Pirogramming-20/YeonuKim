@@ -6,10 +6,11 @@ def insertStudent(name, midScore, finalScore) :
     newStudent = Student(name, midScore, finalScore)
     studentList.append(newStudent)
 
-
 ##############  menu 2
-def grading() :
+def grading(studentList) :
     #학점 부여 하는 코딩
+    for student in studentList:
+        student.calcGrade()
     pass
 
 ##############  menu 3
@@ -93,6 +94,11 @@ while True :
         #예외사항 처리(저장된 학생 정보의 유무)
         #예외사항이 아닌 경우 2번 함수 호출
         #"Grading to all students." 출력
+        if(len(studentList)==0):
+            print("No student data!")
+        else:
+            grading(studentList)
+            print("Grading to all students.")
         pass
 
     elif choice == "3" :
