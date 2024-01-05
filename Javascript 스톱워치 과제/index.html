@@ -6,8 +6,33 @@
     <title>Document</title>
     <link href="styles/reset.css" rel="stylesheet" />
     <link href="styles/global.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <header>
+      <i class="ri-timer-fill"></i>
+      <span>피로그래밍 스톱워치</span>
+    </header>
+    <section id="stop-watch">
+      <span id="stop-watch-time">00:00</span>
+      <div id="button-wrapper">
+        <button id="start-button">start</button>
+        <button id="stop-button">stop</button>
+        <button id="reset-button">reset</button>
+      </div>
+    </section>
+    <section id="record-wrapper">
+      <div id="record-header">
+        <i class="ri-circle-line" id="all-select-button"></i>
+        <!--i class="ri-checkbox-circle-line"></i-->
+        <span>구간 기록</span>
+        <i class="ri-delete-bin-fill" id="trash-button"></i>
+      </div>
+      <div id="record-container"></div>
+    </section>
     <script src="src/main.js"></script>
   </body>
 </html>
