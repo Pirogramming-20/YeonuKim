@@ -1,10 +1,5 @@
 const timeSpan = document.getElementById("stop-watch-time");
 const recordContainer = document.getElementById("record-container");
-const circleBtns = document.getElementsByClassName("circle-button");
-
-//reset local storage when refresh the page
-window.localStorage.clear();
-localStorage.setItem("times", "[]");
 
 time = 0;
 interval = setInterval(() => {}, 0);
@@ -18,32 +13,6 @@ class StopwatchButton {
     setTimeout(() => {
       this.button.style.boxShadow = "4px 4px 2px rgba(0, 0, 0, 0.2)";
     }, 100);
-  }
-  getStoredRecords() {
-    return JSON.parse(localStorage.getItem("times"));
-  }
-  setStoredRecords(records) {
-    localStorage.setItem("times", JSON.stringify(records));
-  }
-  isChecked(button) {
-    return Array.from(button.classList).includes("ri-checkbox-circle-line");
-  }
-  checkAllSelect(buttons, targetBtn) {
-    let isAllChecked = true;
-    console.log(targetBtn);
-    for (const button of buttons) {
-      if (!this.isChecked(button)) {
-        isAllChecked = false;
-        break;
-      }
-    }
-    if (isAllChecked) {
-      targetBtn.button.classList.remove("ri-circle-line");
-      targetBtn.button.classList.add("ri-checkbox-circle-line");
-    } else {
-      targetBtn.button.classList.remove("ri-checkbox-circle-line");
-      targetBtn.button.classList.add("ri-circle-line");
-    }
   }
 }
 
@@ -80,18 +49,26 @@ class StopButton extends StopwatchButton {
   </div>
     `
     );
-    this.addClickToCheckBox(circleBtns[circleBtns.length - 1]); // add eventListener to new checkbox list
+    const newCircleBtn =
+      recordContainer.lastElementChild.querySelector(".circle-button");
+    if (newCircleBtn) {
+      const addCircleButton = new CircleButton(newCircleBtn);
+      circleBtns.push(addCircleButton);
+      this.addClickToCheckBox(addCircleButton); // Add eventListener to a new circleButton
+    }
   }
   // Show check when click circle buttons
   addClickToCheckBox(circleBtn) {
-    circleBtn.addEventListener("click", () => {
-      this.toggleCheckbox(circleBtn);
-      this.checkAllSelect(circleBtns, allSelBtn);
+    circleBtn.button.addEventListener("click", () => {
+      circleBtn.toggleCheckbox();
+      allSelBtn.checkAllSelect(circleBtns);
     });
   }
-  toggleCheckbox(button) {
-    button.classList.toggle("ri-circle-line");
-    button.classList.toggle("ri-checkbox-circle-line");
+  getStoredRecords() {
+    return JSON.parse(localStorage.getItem("times"));
+  }
+  setStoredRecords(records) {
+    localStorage.setItem("times", JSON.stringify(records));
   }
 }
 
@@ -117,57 +94,60 @@ class CircleButton {
     this.button.classList.toggle("ri-circle-line");
     this.button.classList.toggle("ri-checkbox-circle-line");
   }
-  isChecked(circleBtn) {
-    return Array.from(circleBtn.button.classList).includes(
+  isChecked() {
+    return Array.from(this.button.classList).includes(
       "ri-checkbox-circle-line"
     );
   }
-  checkAllSelect(buttons, targetBtn) {
+  checkAllSelect(buttons) {
     let isAllChecked = true;
     for (const button of buttons) {
-      if (!isChecked(button)) {
+      if (!button.isChecked()) {
         isAllChecked = false;
         break;
       }
     }
     if (isAllChecked) {
-      targetBtn.classList.remove("ri-circle-line");
-      targetBtn.classList.add("ri-checkbox-circle-line");
+      this.button.classList.remove("ri-circle-line");
+      this.button.classList.add("ri-checkbox-circle-line");
     } else {
-      targetBtn.classList.remove("ri-checkbox-circle-line");
-      targetBtn.classList.add("ri-circle-line");
+      this.button.classList.remove("ri-checkbox-circle-line");
+      this.button.classList.add("ri-circle-line");
     }
   }
   // All selection Button
   clickAllSelect() {
     this.toggleCheckbox(allSelBtn);
-    if (this.isChecked(allSelBtn)) {
+    if (allSelBtn.isChecked()) {
       for (const circleBtn of circleBtns) {
-        circleBtn.classList.remove("ri-circle-line");
-        circleBtn.classList.add("ri-checkbox-circle-line");
+        circleBtn.button.classList.remove("ri-circle-line");
+        circleBtn.button.classList.add("ri-checkbox-circle-line");
       }
     } else {
       for (const circleBtn of circleBtns) {
-        circleBtn.classList.remove("ri-checkbox-circle-line");
-        circleBtn.classList.add("ri-circle-line");
+        circleBtn.button.classList.remove("ri-checkbox-circle-line");
+        circleBtn.button.classList.add("ri-circle-line");
       }
     }
   }
 }
 
-class TrashButton extends CircleButton {
+class TrashButton {
+  constructor(element) {
+    this.button = element;
+  }
   // Delete when click a trash button
   deleteRecord(circleBtns) {
     const checkedDivs = [];
     for (const circleBtn of circleBtns) {
       // erase from localStorage
-      if (this.isChecked(circleBtn)) {
+      if (circleBtn.isChecked()) {
         const targetText = circleBtn.button.nextElementSibling.innerText;
-        const records = this.getStoredRecords();
+        const records = circleBtn.getStoredRecords();
         const recordsFiltered = records.filter((record) => {
           return record != targetText;
         });
-        this.setStoredRecords(recordsFiltered);
+        circleBtn.setStoredRecords(recordsFiltered);
         checkedDivs.push(circleBtn.button.parentNode);
       }
     }
@@ -189,6 +169,13 @@ const allSelBtn = new CircleButton(
   document.getElementById("all-select-button")
 );
 const trashBtn = new TrashButton(document.getElementById("trash-button"));
+const circleBtns = Array.from(
+  document.getElementsByClassName("circle-button")
+).map((btn) => new CircleButton(btn));
+
+//reset local storage when refresh the page
+window.localStorage.clear();
+localStorage.setItem("times", "[]");
 
 startBtn.button.addEventListener("click", () => {
   startBtn.setButtonShadow(startBtn);
@@ -211,7 +198,5 @@ allSelBtn.button.addEventListener("click", () => {
 
 // Delete data when click a trash button
 trashBtn.button.addEventListener("click", () => {
-  trashBtn.deleteRecord(
-    Array.from(circleBtns).map((btn) => new CircleButton(btn))
-  );
+  trashBtn.deleteRecord(circleBtns);
 });
