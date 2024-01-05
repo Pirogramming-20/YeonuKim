@@ -21,10 +21,25 @@ def printStudent() :
         print(f"{student.getName():10} {str(student.getMidScore()):10} {str(student.getFinalScore()):10} {student.getGrade():10}")
 
 ##############  menu 4
-def deleteStudent():
+def deleteStudent(name):
     #학생 정보 삭제하는 코딩
-    pass
-
+    for student in studentList:
+        if(student.getName() == name):
+            studentList.remove(student)
+def invalidName(name):
+    for nameChar in name:
+        if(nameChar != '0'
+           and nameChar != '1'
+           and nameChar != '2'
+           and nameChar != '3'
+           and nameChar != '4'
+           and nameChar != '5'
+           and nameChar != '6'
+           and nameChar != '7'
+           and nameChar != '8'
+           and nameChar != '9'):
+            return True
+    return False
 class Student:
     def __init__(self, name, midScore, finalScore):
         self.__name = name
@@ -82,22 +97,19 @@ while True :
         if(len(userinput) != 3):
             print("Num of data is not 3!")
             continue
-        if(userinput[1].find('-') != -1 or userinput[1].find('.') != -1 or userinput[2].find('-') != -1 or userinput[2].find('.') !=-1):
+        if(invalidName(userinput[1]) or invalidName(userinput[2])):
             print("Score is not positive integer!")
             continue
         name = userinput[0]
         midScore = int(userinput[1])
         finalScore = int(userinput[2])
         doubleFlag = False
-        if (len(studentList) == 0):
+        for student in studentList:
+            if(student.getName() == name):
+                print("Already exist name!")
+                doubleFlag = True
+        if(not doubleFlag):
             insertStudent(name, midScore, finalScore)
-        else:
-            for student in studentList:
-                if(student.getName() == name):
-                    print("Already exist name!")
-                    doubleFlag = True
-            if(not doubleFlag):
-                insertStudent(name, midScore, finalScore)
 
     elif choice == "2" :
         #예외사항 처리(저장된 학생 정보의 유무)
@@ -105,9 +117,9 @@ while True :
         #"Grading to all students." 출력
         if(len(studentList)==0):
             print("No student data!")
-        else:
-            grading()
-            print("Grading to all students.")
+            continue
+        grading()
+        print("Grading to all students.")
 
     elif choice == "3" :
         #예외사항 처리(저장된 학생 정보의 유무, 저장되어 있는 학생들의 학점이 모두 부여되어 있는지)
@@ -129,6 +141,17 @@ while True :
         #예외사항이 아닌 경우, 삭제할 학생 이름 입력 받기
         #입력 받은 학생의 존재 유무 체크 후, 없으면 "Not exist name!" 출력
         #있으면(예를 들어 kim 이라 하면), 4번 함수 호출 후에 "kim student information is deleted." 출력
+        targetName = input("Enter the name to delete: ")
+        existStudentFlag = False
+        if(len(studentList) == 0):
+            print("No student data!")
+            continue
+        for student in studentList:
+            if(student.getName() == targetName):
+                existStudentFlag = True
+                deleteStudent(targetName)
+        if(not existStudentFlag):
+            print("Not exist name!")
         pass
 
     elif choice == "5" :
@@ -136,9 +159,7 @@ while True :
         #반복문 종료
         print("Exit Program!")
         break
-        pass
 
     else :
         #"Wrong number. Choose again." 출력
         print("Wrong number. Choose again.")
-        pass
