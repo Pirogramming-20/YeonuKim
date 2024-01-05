@@ -7,16 +7,18 @@ def insertStudent(name, midScore, finalScore) :
     studentList.append(newStudent)
 
 ##############  menu 2
-def grading(studentList) :
+def grading() :
     #학점 부여 하는 코딩
     for student in studentList:
         student.calcGrade()
-    pass
 
 ##############  menu 3
 def printStudent() :
     #출력 코딩
-    pass
+    print("-----------------------------")
+    print(f"{'name':10} {'mid':10} {'final':10} {'grade':10}")
+    for student in studentList:
+        print(f"{student.getName():10} {str(student.getMidScore()):10} {str(student.getFinalScore()):10} {student.getGrade():10}")
 
 ##############  menu 4
 def deleteStudent():
@@ -32,6 +34,12 @@ class Student:
     
     def getName(self):
         return self.__name
+    
+    def getMidScore(self):
+        return self.__midScore
+    
+    def getFinalScore(self):
+        return self.__finalScore
     
     def getGrade(self):
         return self.__grade
@@ -73,22 +81,23 @@ while True :
         userinput = input("Enter name mid-score final-score: ").split()
         if(len(userinput) != 3):
             print("Num of data is not 3!")
-        elif(userinput[1].find('-') != -1 or userinput[1].find('.') != -1 or userinput[2].find('-') != -1 or userinput[2].find('.') !=-1):
+            continue
+        if(userinput[1].find('-') != -1 or userinput[1].find('.') != -1 or userinput[2].find('-') != -1 or userinput[2].find('.') !=-1):
             print("Score is not positive integer!")
+            continue
+        name = userinput[0]
+        midScore = int(userinput[1])
+        finalScore = int(userinput[2])
+        doubleFlag = False
+        if (len(studentList) == 0):
+            insertStudent(name, midScore, finalScore)
         else:
-            name = userinput[0]
-            midScore = int(userinput[1])
-            finalScore = int(userinput[2])
-            doubleFlag = False
-            if (len(studentList) == 0):
+            for student in studentList:
+                if(student.getName() == name):
+                    print("Already exist name!")
+                    doubleFlag = True
+            if(not doubleFlag):
                 insertStudent(name, midScore, finalScore)
-            else:
-                for student in studentList:
-                    if(student.getName() == name):
-                        print("Already exist name!")
-                        doubleFlag = True
-                if(not doubleFlag):
-                    insertStudent(name, midScore, finalScore)
 
     elif choice == "2" :
         #예외사항 처리(저장된 학생 정보의 유무)
@@ -97,14 +106,23 @@ while True :
         if(len(studentList)==0):
             print("No student data!")
         else:
-            grading(studentList)
+            grading()
             print("Grading to all students.")
-        pass
 
     elif choice == "3" :
         #예외사항 처리(저장된 학생 정보의 유무, 저장되어 있는 학생들의 학점이 모두 부여되어 있는지)
         #예외사항이 아닌 경우 3번 함수 호출
-        pass
+        isGradeFlag = False
+        if(len(studentList)==0):
+            print("No student data!")
+            continue
+        for student in studentList:
+            if(not student.isGrade()):
+                print("There is a student who didn't get grade.")
+                isGradeFlag = True
+                break               
+        if(not isGradeFlag):
+            printStudent()
 
     elif choice == "4" :
         #예외사항 처리(저장된 학생 정보의 유무)
