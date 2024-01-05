@@ -11,28 +11,18 @@ const allSelBtn = document.getElementById("all-select-button");
 window.localStorage.clear();
 localStorage.setItem("times", "[]");
 
-// Make button shadow animations
 startBtn.addEventListener("click", () => {
-  startBtn.style.boxShadow = "none";
-  setTimeout(() => {
-    startBtn.style.boxShadow = "4px 4px 2px rgba(0, 0, 0, 0.2)";
-  }, 100);
+  setButtonShadow(startBtn);
   startStopWatch();
 });
 
 stopBtn.addEventListener("click", () => {
-  stopBtn.style.boxShadow = "none";
-  setTimeout(() => {
-    stopBtn.style.boxShadow = "4px 4px 2px rgba(0, 0, 0, 0.2)";
-  }, 100);
+  setButtonShadow(stopBtn);
   stopStopWatch();
 });
 
 resetBtn.addEventListener("click", () => {
-  resetBtn.style.boxShadow = "none";
-  setTimeout(() => {
-    resetBtn.style.boxShadow = "4px 4px 2px rgba(0, 0, 0, 0.2)";
-  }, 100);
+  setButtonShadow(resetBtn);
   resetStopWatch();
 });
 
@@ -51,10 +41,10 @@ let interval = setInterval(() => {}, 0);
 function startStopWatch() {
   interval = setInterval(() => {
     time++;
-    milisec = Math.floor(time % 100);
-    sec = Math.floor(time / 100);
-    timeSpan.innerText = `${String(sec).padStart(2, "0")}:${String(
-      milisec
+    miliseconds = Math.floor(time % 100);
+    seconds = Math.floor(time / 100);
+    timeSpan.innerText = `${String(seconds).padStart(2, "0")}:${String(
+      miliseconds
     ).padStart(2, "0")}`;
   }, 10);
 }
@@ -68,6 +58,14 @@ function resetStopWatch() {
   time = 0;
   clearInterval(interval);
   timeSpan.innerText = "00:00";
+}
+
+// Make button shadow animations
+function setButtonShadow(button) {
+  button.style.boxShadow = "none";
+  setTimeout(() => {
+    button.style.boxShadow = "4px 4px 2px rgba(0, 0, 0, 0.2)";
+  }, 100);
 }
 
 // Record when click a stop button using local storage
@@ -90,62 +88,82 @@ function addRecord(record) {
 // Show check when click circle buttons
 function clickCheckBox(circleBtn) {
   circleBtn.addEventListener("click", () => {
-    if (circleBtn.className == "ri-circle-line circle-button") {
-      circleBtn.className = "ri-checkbox-circle-line circle-button";
-      let allCheckFlag = true;
-      for (const checkBtn of circleBtns) {
-        if (checkBtn.className == "ri-circle-line circle-button") {
-          allCheckFlag = false;
-          break;
-        }
-      }
-      if (allCheckFlag) allSelBtn.className = "ri-checkbox-circle-line";
-    } else if (circleBtn.className == "ri-checkbox-circle-line circle-button") {
-      circleBtn.className = "ri-circle-line circle-button";
-      allSelBtn.className = "ri-circle-line";
-    }
+    toggleCheckbox(circleBtn);
+    checkAllSelect(circleBtns, allSelBtn);
   });
 }
 
 // All selection Button
 function clickAllSelect() {
-  if (allSelBtn.className == "ri-circle-line") {
-    allSelBtn.className = "ri-checkbox-circle-line";
+  toggleCheckbox(allSelBtn);
+  if (isChecked(allSelBtn)) {
     for (const circleBtn of circleBtns) {
-      circleBtn.className = "ri-checkbox-circle-line circle-button";
+      circleBtn.classList.remove("ri-circle-line");
+      circleBtn.classList.add("ri-checkbox-circle-line");
     }
-  } else if (allSelBtn.className == "ri-checkbox-circle-line") {
-    allSelBtn.className = "ri-circle-line";
+  } else {
     for (const circleBtn of circleBtns) {
-      circleBtn.className = "ri-circle-line circle-button";
+      circleBtn.classList.remove("ri-checkbox-circle-line");
+      circleBtn.classList.add("ri-circle-line");
     }
   }
 }
+
+function toggleCheckbox(button) {
+  button.classList.toggle("ri-circle-line");
+  button.classList.toggle("ri-checkbox-circle-line");
+}
+
+function isChecked(button) {
+  return Array.from(button.classList).includes("ri-checkbox-circle-line");
+}
+
+function checkAllSelect(buttons, targetBtn) {
+  let isAllChecked = true;
+  for (const button of circleBtns) {
+    if (!isChecked(button)) {
+      isAllChecked = false;
+      break;
+    }
+  }
+  if (isAllChecked) {
+    targetBtn.classList.remove("ri-circle-line");
+    targetBtn.classList.add("ri-checkbox-circle-line");
+  } else {
+    targetBtn.classList.remove("ri-checkbox-circle-line");
+    targetBtn.classList.add("ri-circle-line");
+  }
+}
+
 // Delete when click a trash button
 function deleteRecord(circleBtns) {
   const checkedDivs = [];
   for (const circleBtn of circleBtns) {
-    console.log(Array.from(circleBtn.classList));
     // erase from localStorage
-    if (Array.from(circleBtn.classList).includes("ri-checkbox-circle-line")) {
+    if (isChecked(circleBtn)) {
       const targetText = circleBtn.nextElementSibling.innerText;
-      const records = JSON.parse(localStorage.getItem("times"));
-      console.log(records);
-      console.log(circleBtn.nextElementSibling);
-      console.log(targetText);
+      const records = getStoredRecords();
       const recordsFiltered = records.filter((record) => {
         return record != targetText;
       });
+      setStoredRecords(recordsFiltered);
       checkedDivs.push(circleBtn.parentNode);
-      localStorage.setItem("times", JSON.stringify(recordsFiltered));
-      console.log(recordsFiltered);
-      console.log(checkedDivs[0]);
     }
   }
-  // erase from DOM
-  while (checkedDivs.length != 0) {
-    console.log(checkedDivs[0]);
-    checkedDivs[0].remove();
-    checkedDivs.shift();
+  eraseElementsFromDOM(checkedDivs);
+}
+
+function getStoredRecords() {
+  return JSON.parse(localStorage.getItem("times"));
+}
+
+function setStoredRecords(records) {
+  localStorage.setItem("times", JSON.stringify(records));
+}
+
+function eraseElementsFromDOM(elementList) {
+  while (elementList.length != 0) {
+    elementList[0].remove();
+    elementList.shift();
   }
 }
