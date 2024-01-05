@@ -74,7 +74,6 @@ function resetStopWatch() {
 function addRecord(record) {
   const records = JSON.parse(localStorage.getItem("times"));
   records.push(record);
-  console.log(records);
   localStorage.setItem("times", JSON.stringify(records));
   recordContainer.insertAdjacentHTML(
     "beforeend",
@@ -85,7 +84,7 @@ function addRecord(record) {
   </div>
     `
   );
-  clickCheckBox(circleBtns[circleBtns.length - 1]); // add eventListener to checkbox list
+  clickCheckBox(circleBtns[circleBtns.length - 1]); // add eventListener to new checkbox list
 }
 
 // Show check when click circle buttons
