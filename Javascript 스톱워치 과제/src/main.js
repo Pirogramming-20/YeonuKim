@@ -1,8 +1,9 @@
 const timeSpan = document.getElementById("stop-watch-time");
 const recordContainer = document.getElementById("record-container");
 
-time = 0;
-interval = setInterval(() => {}, 0);
+let time = 0;
+let interval = setInterval(() => {}, 0);
+
 class StopwatchButton {
   constructor(elementId) {
     this.button = document.getElementById(elementId);
@@ -19,6 +20,7 @@ class StopwatchButton {
 class StartButton extends StopwatchButton {
   // Change time accoring button click
   startStopWatch() {
+    clearInterval(interval);
     interval = setInterval(() => {
       ++time;
       let miliseconds = Math.floor(time % 100);
