@@ -236,3 +236,555 @@ Gunicorn을 많이 사용하는 추세임.
   - 특정 정보를 데이터베이스에서 찾음.
   - 권한 확인
   - 해당 요청을 수행 후 답장 생성 → 클라이언트로 보냄.
+
+## 장고 개발 준비 (점프 투 장고)
+
+### 장고는 무엇일까?
+
+- 장고는 웹 프레임워크
+- 웹 프레임워크란?
+    - 자주 사용하는 기능을 누군가가 이미 만들어 놓음.
+    - 웹 스타터 키트
+- 장고의 보안 기능
+    - 기본적인 보안 공격을 막아줌.
+    - SQL 인젝션, XSS, CSRF, 클릭재킹 등
+
+### 장고 프로젝트 시작하기
+
+```jsx
+django-admin startproject config .
+python manage.py runserver
+```
+
+## 장고의 기본 요소 익히기!
+
+### URL과 뷰
+
+- 앱
+    - 프로젝트에 추가하는 기능
+    
+    ```jsx
+    django-admin startapp pybo
+    ```
+    
+- urls.py
+    - 페이지 요청이 발생하면 가장 먼저 호출되는 파일
+    - url과 뷰 함수 사이의 매핑 정의
+    
+    ```jsx
+    from django.urls import path, include
+    // project urls
+    path("", include('demos.urls'))
+    path("pybo/", include('login.urls')),
+    
+    // app urls (under pybo)
+    path('', index, name='index')
+    ```
+    
+- 장고의 흐름
+    - 로컬 서버로 페이지 요청
+    - [urls.py](http://urls.py) 파일에서 요청한 url과 일치하는 (url, view) 매핑 확인
+    - view 함수 호출
+    - 결과를 브라우저에 반영
+
+### 모델
+
+- 장고의 데이터베이스
+    - 모델을 사용하여 처리
+    - SQL 쿼리문을 사용하지 않아도 처리 가능
+    - sqlite3 파일을 사용하여 데이터 저장
+        - 보통 소규모 프로젝트에서 사용
+        - 실제로는 DB를 따로 빼는 것이 일반적임.
+- migrate
+    - 데이터베이스 쪽에서 테이블을 생성할 수 있도록 만듦.
+    - 파이썬 객체 → 데이터베이스 (sqlite3)
+- ORM
+    - 기존의 쿼리문들은 개발자에 따라 달라질 수 있다는 문제가 있음.
+    - 쿼리를 잘못 사용하면 성능 저하
+    - MySQL → 오라클 변경 시 쿼리문을 모두 변경해야 함.
+    - 테이블을 모델화 → 쿼리문 사용 X
+- 모델의 속성
+    - 파이보: 질문과 답변을 할 수 있는 게시판 서비스
+    - 질문
+        - subject (제목)
+        - content (내용)
+        - create_date (작성 일시)
+    - 답변
+        - question (질문)
+        - content (내용)
+        - create_date (답변을 작성한 일시)
+- Foreign Key
+    - 역방향 접근을 가능하게 함.
+    
+    ```python
+    from django.db import models
+    
+    # Create your models here.
+    class Question(models.Model):
+        subject = models.CharField(max_length=200)
+        content = models.TextField()
+        create_date = models.DateTimeField()
+    
+        def __str__(self):
+            return self.subject
+    
+    class Answer(models.Model):
+        question = models.ForeignKey(Question, on_delete=models.CASCADE)
+        content = models.TextField()
+        create_date = models.DateTimeField()
+    
+        def __str__(self):
+            return self.question.subject
+    
+    q = Question.objects.get(id=1)
+    q.answer_set.all() # q에서의 역방향 접근
+    ```
+    
+
+### 장고 관리자
+
+- 슈퍼유저
+    - 장고 관리자 화면에 접속할 수 있는 유저
+    
+    ```python
+    django-admin manage.py createsuperuser
+    
+    # admin.py
+    from django.contrib import admin
+    from .models import Question
+    
+    class QuestionAdmin(admin.ModelAdmin):
+    	search_fiels = ['subject']
+    
+    admin.site.register(Question) # Add model to the admin page
+    admin.site.register(Question, QuestionAdmin) # Add search field to admin page
+    ```
+    
+
+### 조회와 템플릿
+
+- 템플릿 태그
+
+```python
+{% if 조건문1 %}
+    <p>조건문1에 해당되는 경우</p>
+{% elif 조건문2 %}
+    <p>조건문2에 해당되는 경우</p>
+{% else %}
+    <p>조건문1, 2에 모두 해당되지 않는 경우</p>
+{% endif %}
+```
+
+```python
+{% for item in list %}
+    <p>순서: {{ forloop.counter }} </p>
+    <p>{{ item }}</p>
+{% endfor %}
+```
+
+- 아이디별 상세 페이지 만들기
+
+```python
+#urls.py
+from django.urls import path
+from .views import index, question_detail
+
+urlpatterns = [
+    path('', index, name = 'index'),
+    path('question/<int:pk>/', question_detail, name='question_detail')
+]
+```
+
+```python
+# views.py
+from django.shortcuts import render, get_object_or_404
+from .models import Question
+
+# Create your views here.
+def index(request):
+    question_list = Question.objects.order_by('-create_date')
+    return render(request, 'pybo/question_list.html', {'question_list': question_list})
+
+def question_detail(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    return render(request, 'pybo/question_detail.html', {'question':question})
+```
+
+```python
+# templates/question_list.html
+{% if question_list %}
+<ul>
+  {% for question in question_list %}
+  <li>
+    <p>순서: {{ forloop.counter }}</p>
+    <a href="{% url 'question_detail' pk=question.pk %}"
+      >{{ question.subject }}</a
+    > # url 'question_detail' is url in path[1]
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>질문이 없습니다.</p>
+{% endif %}
+
+#templates/question_detail.html
+<h1>{{question.subject}}</h1>
+<div>{{question.content}}</div>
+```
+
+### URL 별칭
+
+- 하드코딩되지 않은 링크 → URL 별칭을 사용하면 쉽게 path 변경 가능
+- 네임스패이스
+    - app_name 설정 가능
+    - 여러 앱을 사용했을 때 별칭이 겹치지 않도록 함.
+
+### 데이터 저장
+
+- form을 사용하여 답변을 저장할 수 있음.
+- csrf_token
+    - 해커가 이상한 값을 입력하는 것을 방지하기 위한 토큰
+    - 토큰이 없으면 오류 발생
+
+```python
+<h1>{{question.subject}}</h1>
+<div>{{question.content}}</div>
+
+<h5>{{ question.answer_set.count}}개의 답변이 있습니다.</h5>
+<div>
+  <ul>
+    {% for answer in question.answer_set.all %}
+    <li>{{ answer.content }}</li>
+    {% endfor %}
+  </ul>
+</div>
+<form action="{% url 'pybo:answer_create' pk=question.pk %}" method="POST">
+  {% csrf_token %}
+  <textarea name="content" id="content" rows="15"></textarea>
+  <input type="submit" value="Register answer" />
+</form>
+```
+
+```python
+from django.urls import path
+from .views import index, question_detail, answer_create
+
+app_name = 'pybo'
+urlpatterns = [
+    path('', index, name = 'index'),
+    path('question/<int:pk>/', question_detail, name='question_detail'),
+    path('answer/create/<int:pk>/', answer_create, name="answer_create")
+]
+```
+
+```python
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
+from .models import Question, Answer
+
+# Create your views here.
+def index(request):
+    question_list = Question.objects.order_by('-create_date')
+    return render(request, 'pybo/question_list.html', {'question_list': question_list})
+
+def question_detail(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    return render(request, 'pybo/question_detail.html', {'question':question})
+
+def answer_create(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    content = request.POST.get('content')
+    create_date = timezone.now()
+    answer = Answer(question = question, content=content, create_date=create_date)
+    answer.save()
+    return redirect('pybo:question_detail', pk=question.id)
+```
+
+### 스태틱
+
+- 스태틱 디렉터리 세팅
+
+```python
+# config/settings.py
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+# templates/question_detail
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+```
+
+- 앱마다 static을 깔아도 되고 전체에 저장해도 됨.
+
+### 템플릿 상속
+
+- 공통으로 사용되는 구조는 BASE 템플릿으로 지정할 수 있음.
+
+```python
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Hello, pybo!</title>
+</head>
+<body>
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+</body>
+</html>
+```
+
+- 앱 네임스페이스를 사용한 경우 base는 app 바깥으로 빼기
+    - 안 썼으면 templates 안 아무데나 넣으면 됨.
+
+### 폼
+
+- [forms.py](http://forms.py)에서 설정 가능
+    - 파라미터를 관리할 때 사용 (필수 사항 누락, 양식 검증 등)
+
+```python
+from django import forms
+from pybo.models import Question
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question  # 사용할 모델
+        fields = ['subject', 'content']  # QuestionForm에서 사용할 Question 모델의 속성
+				widgets = {
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
+        } # Control the attributes of HTML tags
+        labels = {
+            'subject': '제목',
+            'content': '내용',
+        } # Add label in form
+```
+
+```python
+def answer_create(request, question_id):
+    """
+    pybo 답변등록
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.create_date = timezone.now()
+            answer.question = question
+            answer.save()
+            return redirect('pybo:detail', question_id=question.id)
+    else:
+        return HttpResponseNotAllowed('Only POST is possible.')
+    context = {'question': question, 'form': form}
+    return render(request, 'pybo/question_detail.html', context)
+```
+
+```python
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    (... 생략 ...)
+    <form action="{% url 'pybo:answer_create' question.id %}" method="post" class="my-3">
+        {% csrf_token %}
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+            {% if field.errors %}
+            <div>
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="mb-3">
+            <textarea name="content" id="content" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" value="답변등록" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}
+```
+
+## 파이보 서비스 개발!
+
+### 템플릿 삽입
+
+- 템플릿의 특정 위치에 다른 템플릿 삽입 가능
+- include 태그를 사용하여 추가
+    - 내비바는 독립된 템플릿으로 관리하는 것이 유지보수에 유리하여 분리
+
+```python
+{% include "navbar.html" %}
+```
+
+### 페이징
+
+- 대량의 테스트 데이터 만들기
+    - 장고 셸을 사용하면 쉬움
+    - 아예 패키지로 나온 것도 있음.
+        - django-seed
+
+```python
+def index(request):
+    page = request.GET.get('page', '1')
+		# URL에서 page 값을 가지고 옴. 디폴트 값은 1로 설정
+    question_list = Question.objects.order_by('-create_date')
+    paginator = Paginator(question_list, 10)
+		# 페이지당 10개씩 보여주기로 설정
+    page_obj = paginator.get_page(page)
+		# 장고 내부에서는 해당 페이지의 데이터만 조회하도록 함.
+    return render(request, 'pybo/question_list.html', {'question_list': page_obj})
+```
+
+| 항목 | 설명 |
+| --- | --- |
+| paginator.count | 전체 게시물 개수 |
+| paginator.per_page | 페이지당 보여줄 게시물 개수 |
+| paginator.page_range | 페이지 범위 |
+| number | 현재 페이지 번호 |
+| previous_page_number | 이전 페이지 번호 |
+| next_page_number | 다음 페이지 번호 |
+| has_previous | 이전 페이지 유무 |
+| has_next | 다음 페이지 유무 |
+| start_index | 현재 페이지 시작 인덱스(1부터 시작) |
+| end_index | 현재 페이지의 끝 인덱스(1부터 시작) |
+
+```python
+ 		<ul>
+      {% for question in question_list %}
+      <li>
+        <p>순서: {{ forloop.counter }}</p>
+        <a href="{% url 'pybo:question_detail' pk=question.pk %}"
+          >{{ question.subject }}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+    <ul>
+      {% if question_list.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ question_list.previous_page_number }}">이전</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link">이전</a>
+      </li>
+      {% endif %}
+			# 이전 페이지가 없으면 disable, 있으면 활성화
+      {% for page_number in question_list.paginator.page_range %}
+        {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+          {% if page_number == question_list.number %}
+            <li class="page-item">
+              <a class="page-link active" href="?page={{page_number}}">{{page_number}}</a>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{page_number}}">{{page_number}}</a>
+            </li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+			# 현재 페이지 기준으로 -5, 5 범위 내에 있는 페이지는 보여줌.
+			# |add:-5 는 템플릿 필터
+			# 현재 페이지는 활성화 표시
+      {% if question_list.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ question_list.next_page_number }}">다음</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">다음</a>
+        </li>
+      {% endif %}
+			# 다음 페이지가 없으면 disable, 있으면 활성화
+    </ul>
+```
+
+| 페이징 기능 | 코드 |
+| --- | --- |
+| 이전 페이지가 있는지 체크 | {% if question_list.has_previous %} |
+| 이전 페이지 번호 | {{ question_list.previous_page_number }} |
+| 다음 페이지가 있는지 체크 | {% if question_list.has_next %} |
+| 다음 페이지 번호 | {{ question_list.next_page_number }} |
+| 페이지 리스트 루프 | {% for page_number in question_list.paginator.page_range %} |
+| 현재 페이지와 같은지 체크 | {% if page_number == question_list.number %} |
+
+### 템플릿 필터
+
+- 템플릿 필터란?
+    - 템플릿 태그에서 | 문자 뒤에 사용하는 필터
+    - templatetags 디렉터리에 템플릿 필터 저장 가능
+    - 인라인으로 쓰는 필터들은 변수를 인자로 받을 수 없음. → 따로 파일 필요
+
+```python
+from django import template
+
+register = template.Library()
+
+@register.filter
+def sub(value, arg):
+    return value - arg
+```
+
+```python
+{% load pybo_filter %}
+...
+<td>
+	<!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+	{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
+</td>
+```
+
+### 로그인과 로그아웃
+
+- 권한을 체크하는 단계
+    - django.contrib.auth
+- common 앱
+    - 여러 앱에서 공통으로 사용되는 앱은 common에 저장
+    - common이라는 새로운 앱을 생성함.
+    
+    ```python
+    django-admin startapp common
+    ```
+    
+- 공통으로 관리하는 템플릿은 어디에 위치시킬까?
+    - 기본적으로 장고는 앱 외부 디렉토리에 위치한 템플릿도 불러올 수 있음.
+    - 공통으로 관리하는 템플릿은 아예 프로젝트 최상단으로 뽑을 수 있음.
+        - 대신 settings에 템플릿의 디렉토리를 추가해야 함.
+        
+        ```python
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [BASE_DIR / 'templates'], # (앱 디렉토리에 속해있지 않으면서) 템플릿이 있는 디렉토리는 여기야~
+                'APP_DIRS': True, # 앱 디렉토리 안에 템플릿이 있으니 한번 찾아보렴~
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
+                },
+            },
+        ]
+        ```
+        
+    - 각 앱마다 base.html이 달라도 됨.
+        - 앱 내부 디렉토리에 있는 건 알아서 찾아줌.
