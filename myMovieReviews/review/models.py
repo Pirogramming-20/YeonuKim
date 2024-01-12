@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 
 # Create your models here.
 GENRES_CHOICES=(
@@ -18,6 +19,7 @@ YEAR_CHOICES = tuple(YEAR_CHOICES_LIST)
 
 class Review(models.Model):
     title = models.CharField(max_length=200)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     createYear = models.IntegerField(choices = YEAR_CHOICES)
     genres = models.CharField(max_length=200, choices=GENRES_CHOICES)
     starRate = models.DecimalField(max_digits=2, decimal_places=1, validators=[MaxValueValidator(5.0), MinValueValidator(0.0)])
