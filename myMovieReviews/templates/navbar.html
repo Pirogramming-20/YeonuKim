@@ -1,6 +1,6 @@
 {% block content %}
 <nav>
-    <span>myMovieReviews</span>
+    <a href={% url "review:index" %}>myMovieReviews</a>
     <a href={% url "review:review_create" %} method='post'>Add a New Review</a>
 </nav>
 {% endblock %}
