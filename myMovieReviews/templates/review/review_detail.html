@@ -3,6 +3,10 @@
 <section>
     <h1></h1>
     <a href={% url 'review:review_modify' pk=review.id %} method='post'>수정</a>
+    <form action={% url 'review:review_delete' pk=review.id %} method="post">
+        {% csrf_token %}
+        <button>삭제</button>
+      </form>
 </section>
 <section>
     <ul>

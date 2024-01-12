@@ -7,10 +7,6 @@
     <span>{{review.createYear}}</span>
     <span>{{review.genres}}</span>
     <span>{{review.starRate}}</span>
-    <form action={% url 'review:review_delete' pk=review.id %} method="post">
-      {% csrf_token %}
-      <button>삭제</button>
-    </form>
   </li>
   {% endfor %}
 </ul>
