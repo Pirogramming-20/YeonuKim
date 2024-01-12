@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h1></h1>
+</section>
+<section>
+    <ul>
+        <li><span>{{ review.createYear }}</span></li>
+        <li><span>{{review.directors}}</span></li>
+        <li><span>{{review.actors}}</span></li>
+        <li><span>{{review.genres}}</span></li>
+        <li><span>{{review.starRate}}</span></li>
+        <li><span>{{review.runningTime}}</span></li>
+    </ul>
+</section>
+<section>
+    <span>{{review.content}}</span>
+</section>
+{% endblock %}
