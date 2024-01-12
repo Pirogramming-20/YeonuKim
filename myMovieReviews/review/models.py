@@ -3,11 +3,11 @@ from django.db import models
 # Create your models here.
 GENRES_CHOICES=(
     ('SF', 'SF'),
-    ('ROMANCE', 'Romance'),
-    ('COMEDY', 'Comedy'),
-    ('ACTION', 'Action'),
-    ('MUSIC', 'Music'),
-    ('HORROR', 'Horror'),
+    ('Romance', 'Romance'),
+    ('Comedy', 'Comedy'),
+    ('Action', 'Action'),
+    ('Music', 'Music'),
+    ('Horror', 'Horror'),
 )
 
 YEAR_CHOICES_LIST=[]
