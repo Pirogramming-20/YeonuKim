@@ -2,9 +2,9 @@
 {% block content %}
 <section>
   <form action={% url 'review:index' %} method="get">
-    <input type='submit' name='order' value="title_order" />
-    <input type='submit' name='order' value="star_order" />
-    <input type='submit' name='order' value="time_order" />
+    <input id='title_order' type='submit' name='order' value="title_order">
+    <input id='star_order' type='submit' name='order' value="star_order" />
+    <input id='time_order' type='submit' name='order' value="time_order" />
   </form>
 </section>
 <ul>

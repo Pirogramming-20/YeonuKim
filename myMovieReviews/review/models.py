@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 GENRES_CHOICES=(
@@ -19,8 +20,8 @@ class Review(models.Model):
     title = models.CharField(max_length=200)
     createYear = models.IntegerField(choices = YEAR_CHOICES)
     genres = models.CharField(max_length=200, choices=GENRES_CHOICES)
-    starRate = models.DecimalField(max_digits=2, decimal_places=1)
-    runningTime = models.IntegerField()
+    starRate = models.DecimalField(max_digits=2, decimal_places=1, validators=[MaxValueValidator(5.0), MinValueValidator(0.0)])
+    runningTime = models.PositiveIntegerField()
     content = models.TextField(max_length=10000)
     directors = models.CharField(max_length=200)
     actors = models.CharField(max_length=500)
