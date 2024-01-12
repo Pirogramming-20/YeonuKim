@@ -11,7 +11,6 @@ GENRES_CHOICES=(
     ('Music', 'Music'),
     ('Horror', 'Horror'),
 )
-
 YEAR_CHOICES_LIST=[]
 for i in range(1950, 2025):
     YEAR_CHOICES_LIST.append((i, i))
