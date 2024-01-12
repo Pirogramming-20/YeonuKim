@@ -9,7 +9,8 @@ def index(request):
 
 def review_detail(request, pk):
     review = get_object_or_404(Review, pk=pk)
-    return render(request, 'review/review_detail.html', {'review': review})
+    runningTimeModified = f"{review.runningTime//60}시간 {review.runningTime%60}분"
+    return render(request, 'review/review_detail.html', {'review': review, 'runningTimeModified': runningTimeModified})
 
 def review_create(request):
     if(request.method == 'POST'):
