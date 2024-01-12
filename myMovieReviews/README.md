@@ -15,6 +15,12 @@
     - form.as_p를 사용하여 자동으로 form이 생성되도록 구현
     - 리뷰, 회원가입 시 forms를 사용하여 생성
     - fields 사용 → 필수로 작성해야 하는 곳 보호, 작성하지 않을 시 경고 나타남.
+    ```
+    class ReviewForm(forms.ModelForm):
+        class Meta:
+            model=Review
+            fields = ["title", "createYear", "genres", "starRate", "runningTime", "content", "directors", "actors"]
+    ```
 - Review 입력 제한사항 설정
     - createYear: choices 사용하여 연도 선택 (1950~2024)
     - starRate: 0.0~5.0 사이의 값만 입력, x.x 꼴로 제한
@@ -31,4 +37,4 @@
     
     - 나머지 TextField들 → 최대 입력수 제한
 - index (메인 화면)
-    - 질문이 없을 시 ‘질문이 없습니다’가 뜨도록 함.
+    - 리뷰가 없을 시 ‘리뷰가 없습니다’가 뜨도록 함.
