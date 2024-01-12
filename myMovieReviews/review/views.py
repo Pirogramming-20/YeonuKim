@@ -4,7 +4,14 @@ from .forms import ReviewForm
 
 # Create your views here.
 def index(request):
-    reviews = Review.objects.all()
+    if request.GET.get('order') == 'title_order':
+        reviews = Review.objects.all().order_by('title')
+    elif request.GET.get('order') == 'star_order':
+        reviews = Review.objects.all().order_by('-starRate')
+    elif request.GET.get('order') == 'time_order':
+        reviews = Review.objects.all().order_by('runningTime')
+    else:
+        reviews = Review.objects.all()
     return render(request, 'review/index.html', {'reviews': reviews})
 
 def review_detail(request, pk):

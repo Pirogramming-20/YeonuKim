@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+<section>
+  <form action={% url 'review:index' %} method="get">
+    <input type='submit' name='order' value="title_order" />
+    <input type='submit' name='order' value="star_order" />
+    <input type='submit' name='order' value="time_order" />
+  </form>
+</section>
 <ul>
   {%for review in reviews%}
   <li>
