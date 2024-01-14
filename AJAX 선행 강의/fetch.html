@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>fetch</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <article></article>
+        <input type="button" value="fetch" onclick="
+            fetch('js')
+            .then((response)=>{
+                if (response.status == '404'){
+                    alert('Not found');
+                    return 'Not found'
+                }
+                else{
+                    return response.text();
+                }
+            })
+            .then((text)=>{
+                document.querySelector('article').innerHTML = text;
+            })
+        "/>
+    </body>
+</html>
