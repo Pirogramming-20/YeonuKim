@@ -11,8 +11,7 @@
 
 ### fetch API
 
-- Promise 사용한 코드가 마음에 안 들어서 바꿈.
-    - 가독성 높이도록 콜백 내부에 콜백을 넣지 않도록 함.
+- 가독성 높이도록 콜백 내부에 콜백을 넣지 않도록 코드 수정
 
 ```html
 <input type="button" value="fetch" onclick="
@@ -37,3 +36,20 @@
         - css.text → 파일에서 텍스트를 가지고 옴.
 - Response 객체
     - HTTP response 제공
+
+### 초기 페이지 구현
+
+- a 태그의 기능을 살리면서 fetch를 쓸 수는 없을까?
+- hash 사용
+    - 페이지의 특정한 부분으로 접근하고 있음.
+    - 아이디를 뒤에 붙이면 스크롤이 자동으로 이동됨. (북마크 기능)
+        - http://127.0.0.1:5500/hash.html#three
+        - pragment / pragment identifier
+    - location.hash 사용하여 hash 정보를 알 수 있음.
+- 실습 코드에서 다른 a 버튼들을 누른 뒤 ‘WEB’을 누르면 초기 페이지가 보이지 않음.
+    - if(location.hash)~ 루프가 초기에만 돌아가기 때문에 발생
+    - “WEB a 태그 수정하여 해결
+    
+    ```html
+    <h1><a href="#!welcome" onclick="fetchPage('welcome')">WEB</a></h1>
+    ```
