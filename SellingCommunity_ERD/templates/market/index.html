@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <ul>
+        {% if markets %}
+        {% for market in markets %}
+        <li>
+            <a>{{market.title}}</a>
+            <span>{{market.author.username}}</span>
+            <span>{{market.price}}</span>
+        </li>
+        {% endfor %}
+        {% else %}
+        <span>게시글이 없습니다.</span>
+        {% endif %}
+    </ul>
+</section>
+{% endblock %}
