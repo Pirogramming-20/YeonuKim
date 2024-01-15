@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 <section>
-    <span>{{me.username}}</span>
-    <span>{{me.name}}</span>
-    <span>{{me.age}}</span>
-    <span>{{me.address.do}}</span>
-    <span>{{me.address.si}}</span>
-    <span>{{me.address.gu}}</span>
+  <ul>
+    <li>{{me.username}}</li>
+    <li>{{me.name}}</li>
+    <li>{{me.age}}</li>
+    <li>{{me.address.do}}</li>
+    <li>{{me.address.si}}</li>
+    <li>{{me.address.gu}}</li>
+  </ul>
     <ul>
     {% for following in me.following.all %}
       <li>
         <span>{{following.username}}<span>
       </li>
     {% endfor %}
-    <ul>
+    </ul>
     <h3>팔로잉 관리</h3>
     <ul>
         {% if users %}
