@@ -2,44 +2,53 @@
 {% block content %}
 <section>
   <ul>
-    <li>{{me.username}}</li>
-    <li>{{me.name}}</li>
-    <li>{{me.age}}</li>
-    <li>{{me.address.do}}</li>
-    <li>{{me.address.si}}</li>
-    <li>{{me.address.gu}}</li>
+    <li>아이디: {{me.username}}</li>
+    <li>이름: {{me.name}}</li>
+    <li>나이: {{me.age}}</li>
+    <li>도: {{me.address.do}}</li>
+    <li>시: {{me.address.si}}</li>
+    <li>구: {{me.address.gu}}</li>
   </ul>
-    <ul>
-    {% for following in me.following.all %}
-      <li>
-        <span>{{following.username}}<span>
-      </li>
-    {% endfor %}
-    </ul>
-    <h3>팔로잉 관리</h3>
-    <ul>
-        {% if users %}
-          {% for user in users %}
-            {% if user != me %}
-            <div>
-              <li>
-                <span>{{user.username}}</span>
-                <span>{{user.name}}</span>
-                <form action="{% url 'common:follow' pk=user.id %}" method='POST'>
-                  {% csrf_token %}
-                  {% if user in me.following.all %}
-                    <input type="submit" value='cancel_follow'>
-                  {% else %}
-                    <input type="submit" value='add_follow'>
-                  {% endif %}
-                </form>
-              </li>
-            </div>
-            {% endif %} 
-          {% endfor %}
-        {% else %}
-          <span>유저가 없습니다.</span>
-        {% endif %}
-    </ul>
+  <h3>팔로잉</h3>
+  <ul>
+  {% for following in me.following.all %}
+    <li>
+      <span>{{following.username}}<span>
+    </li>
+  {% endfor %}
+  </ul>
+  <h3>팔로워</h3>
+  <ul>
+  {% for follower in me.follower.all %}
+    <li>
+      <span>{{follower.username}}<span>
+    </li>
+  {% endfor %}
+  </ul>
+  <h3>팔로우 관리</h3>
+  <ul>
+      {% if users %}
+        {% for user in users %}
+          {% if user != me %}
+          <div>
+            <li>
+              <span>{{user.username}}</span>
+              <span>{{user.name}}</span>
+              <form action="{% url 'common:follow' pk=user.id %}" method='POST'>
+                {% csrf_token %}
+                {% if user in me.following.all %}
+                  <input type="submit" value='cancel_follow'>
+                {% else %}
+                  <input type="submit" value='add_follow'>
+                {% endif %}
+              </form>
+            </li>
+          </div>
+          {% endif %} 
+        {% endfor %}
+      {% else %}
+        <span>유저가 없습니다.</span>
+      {% endif %}
+  </ul>
 </section>
 {% endblock %}
