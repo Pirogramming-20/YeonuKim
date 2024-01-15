@@ -11,7 +11,7 @@
 
 ### fetch API
 
-- 가독성 높이도록 콜백 내부에 콜백을 넣지 않도록 코드 수정
+- 가독성을 높이기 위해 콜백 내부에 콜백을 넣지 않도록 코드 수정
 
 ```html
 <input type="button" value="fetch" onclick="
@@ -53,3 +53,44 @@
     ```html
     <h1><a href="#!welcome" onclick="fetchPage('welcome')">WEB</a></h1>
     ```
+### 글목록 AJAX로 구현하기
+
+- 데이터-로직(어플리케이션)이 분리되어야 좋음.
+    - 데이터는 바뀔 수 있기 때문
+    - 로직은 한 어플리케이션 실행 시 바뀌지 않음.
+- fetchList 함수 변경
+    - 태그를 innerHTML 대신 insertAdjacentHTML로 변경
+        - innerHTML: 기존 노드를 삭제하면서 새로 리턴함.
+        - inserAdjacentHTML: 기존 노드를 기준으로 붙이는 위치 설정 가능
+        - innerHTML보다 효율적으로 요소 삽입 가능
+    - while문 대신 map 사용하여 반복문 적용
+
+```jsx
+function fetchList(){
+      fetch('list')
+      .then((response)=>{
+          if (response.status == '404'){
+          alert('Not found');
+          return 'Not found'
+        }
+        else{
+          return response.text();
+        }
+      })
+      .then((texts)=>{
+        textList = texts.split(',')
+        container = document.querySelector('ol')
+        textList.map((text)=>{
+          text = text.trim()
+          container.insertAdjacentHTML(
+          "beforeend",
+          `
+          <li><a href="#!${text}" onclick="fetchPage('${text}')">${text}</a></li>
+          `
+          );
+        })
+      })
+    }
+```
+
+### ㅇㅇㅇ

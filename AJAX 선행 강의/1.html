@@ -12,9 +12,6 @@
     nightDayHandler(this);
   ">
   <ol>
-    <li><a href="#!html" onclick="fetchPage('html')">HTML</a></li>
-    <li><a href="#!css" onclick="fetchPage('css')">CSS</a></li>
-    <li><a href="#!javascript" onclick="fetchPage('javascript')">Javascript</a></li>
   </ol>
   <article>
 
@@ -35,12 +32,40 @@
         document.querySelector('article').innerHTML = text;
       })
     }
+    function fetchList(){
+      fetch('list')
+      .then((response)=>{
+          if (response.status == '404'){
+          alert('Not found');
+          return 'Not found'
+        }
+        else{
+          return response.text();
+        }
+      })
+      .then((texts)=>{
+        textList = texts.split(',')
+        container = document.querySelector('ol')
+        textList.map((text)=>{
+          text = text.trim()
+          container.insertAdjacentHTML(
+          "beforeend",
+          `
+          <li><a href="#!${text}" onclick="fetchPage('${text}')">${text}</a></li>
+          `
+          );
+        })
+      })
+    }
+
     if(location.hash){
       fetchPage(location.hash.substr(2));
     }
     else {
       fetchPage('welcome')
     }
+
+    fetchList()
   </script>
 </body>
 </html>
