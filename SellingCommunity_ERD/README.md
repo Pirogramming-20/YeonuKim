@@ -28,7 +28,7 @@ https://www.erdcloud.com/d/H6bWowaaWreDeWjHT
 - nested model의 폼 입력
     - form.as_p는 두 모델(user, address)에 대해 각각 적용해야 함.
         - form.as_p를 사용하면 is_valid를 사용할 수 있어 편함.
-        - 최대한 분리하지 않는 방향으로 설계
+        - 최대한 form.as_p를 사용하는 방향으로 설계
     - address 데이터를 user 안에 삽입하여 저장
 - ManyToMany 구현
     - 팔로우 기능 구현할 때 ManyToMany 사용
