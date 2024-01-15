@@ -1,5 +1,68 @@
 ## AJAX 선행 과제
 
+### 변경 사항
+
+- Promise 콜백 구조 변경
+    - 가독성을 높이기 위해 콜백 안에 콜백을 넣지 않도록 변경
+
+```html
+<input type="button" value="fetch" onclick="
+            fetch('css')
+            .then((response)=>{
+                return response.text()
+            })
+            .then((text)=>{
+                document.querySelector('article').innerHTML = text;
+            })
+        "/>
+```
+
+- “WEB” a 태그 눌렀을 때 welcome이 나오도록 코드 변경
+
+```html
+<h1><a href="#!welcome" onclick="fetchPage('welcome')">WEB</a></h1>
+```
+
+- 글목록 fetch 함수
+    - while 대신 map 사용
+    - innerHTML 대신 insertAdjacentHTML (기존 노드를 삭제하지 않고 추가)
+
+```jsx
+function fetchList(){
+      fetch('list')
+      .then((response)=>{
+          if (response.status == '404'){
+          alert('Not found');
+          return 'Not found'
+        }
+        else{
+          return response.text();
+        }
+      })
+      .then((texts)=>{
+        textList = texts.split(',')
+        container = document.querySelector('ol')
+        textList.map((text)=>{
+          text = text.trim()
+          container.insertAdjacentHTML(
+          "beforeend",
+          `
+          <li><a href="#!${text}" onclick="fetchPage('${text}')">${text}</a></li>
+          `
+          );
+        })
+      })
+    }
+```
+
+- polyfill 사용 시 타입 지정
+    - 지정하지 않을 시 export 에러 발생
+    - 타입을 모듈로 선언하여야 export 사용 가능
+
+```jsx
+<script type='module' src="fetch/fetch.js"></script>
+```
+
 ### 수업의 목적
 
 - 페이지가 모두 바뀌고 있음.
@@ -93,4 +156,13 @@ function fetchList(){
     }
 ```
 
-### ㅇㅇㅇ
+### Fetch API polyfill
+
+- polyfill
+    - 브라우저가 지원하지 않는 기능은 라이브러리를 깔아서 수행할 수 있음.
+    - 만약 기능이 있다면 그냥 브라우저에 내장된 거 쓰면 됨.
+    - module 타입으로 부르지 않으면 export 에러 발생
+
+```html
+<script type='module' src="fetch/fetch.js"></script>
+```
