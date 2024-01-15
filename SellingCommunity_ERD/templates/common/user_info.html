@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <span>{{me.username}}</span>
+    <span>{{me.name}}</span>
+    <span>{{me.age}}</span>
+    <span>{{me.address.do}}</span>
+    <span>{{me.address.si}}</span>
+    <span>{{me.address.gu}}</span>
+    <ul>
+    {% for following in me.following.all %}
+      <li>
+        <span>{{following.username}}<span>
+      </li>
+    {% endfor %}
+    <ul>
+    <h3>팔로잉 관리</h3>
+    <ul>
+        {% if users %}
+          {% for user in users %}
+            {% if user != me %}
+            <div>
+              <li>
+                <span>{{user.username}}</span>
+                <span>{{user.name}}</span>
+                <form action="{% url 'common:follow' pk=user.id %}" method='POST'>
+                  {% csrf_token %}
+                  {% if user in me.following.all %}
+                    <input type="submit" value='cancel_follow'>
+                  {% else %}
+                    <input type="submit" value='add_follow'>
+                  {% endif %}
+                </form>
+              </li>
+            </div>
+            {% endif %} 
+          {% endfor %}
+        {% else %}
+          <span>유저가 없습니다.</span>
+        {% endif %}
+    </ul>
+</section>
+{% endblock %}
