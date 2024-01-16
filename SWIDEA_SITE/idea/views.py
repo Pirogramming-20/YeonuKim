@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Idea
 from .forms import IdeaForm
 
@@ -37,3 +39,10 @@ def delete(request, pk):
         idea = get_object_or_404(Idea, pk=pk)
         idea.delete()
     return redirect('idea:index')
+
+@csrf_exempt
+def makePick(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+    idea.pick = not idea.pick
+    idea.save()
+    return JsonResponse({'pick_status': idea.pick})

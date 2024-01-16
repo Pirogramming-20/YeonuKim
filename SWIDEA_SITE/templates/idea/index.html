@@ -16,6 +16,13 @@
       {% endif %}
       <a href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
       <span>{{idea.interest}}</span>
+      <i class="pick-btn" button-pk="{{ idea.pk }}">
+        {% if idea.pick %}
+            Unpick
+        {% else %}
+            Pick
+        {% endif %}
+      </i>
     </li>
     {% endfor %}
   {% else %}
@@ -24,4 +31,5 @@
   </li>
   {% endif %}
 </ul>
+<script src="{% static 'idea/js/pick.js' %}" defer></script>
 {% endblock %}
