@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from .models import Idea
 from .forms import IdeaForm
@@ -17,7 +18,10 @@ def index(request):
         idea_list = idea_list.order_by('pk')
     elif sort_order == 'time':
         idea_list = idea_list.order_by('-created_date')
-    return render(request, 'idea/index.html', {'idea_list': idea_list})
+
+    page = request.GET.get('page', '1')
+    paginator = Paginator(idea_list, 4)
+    return render(request, 'idea/index.html', {'idea_list': paginator.get_page(page)})
 
 def create(request):
     if request.method == 'POST':

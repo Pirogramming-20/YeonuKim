@@ -15,8 +15,8 @@
   </form>
 </section>
 <div id='idea-container'>
-  <ul>
-    {% if idea_list %}
+  {% if idea_list %}
+  <ul>    
       {%for idea in idea_list%}
       <li>
         {% if idea.image %}
@@ -39,12 +39,37 @@
         </i>
       </li>
       {% endfor %}
-    {% else %}
+  </ul>
+  <ul>
+    {% if idea_list.has_previous %}
     <li>
-      <span>아이디어가 없습니다.</span>
+      <a href='?page={{ idea_list.previous_page_number }}'>이전</a>
+    </li>
+    {% endif %}
+    {% for page_num in idea_list.paginator.page_range %}
+      {% if page_num == idea_list.number %}
+      <li class="current_page">
+        <a href='?page={{page_num}}'>{{page_num}}</a>
+      </li>
+      {% else %}
+      <li>
+        <a href='?page={{page_num}}'>{{page_num}}</a>
+      </li>
+      {% endif %}
+    {% endfor %}
+    {% if idea_list.has_next %}
+    <li>
+      <a href='?page={{ idea_list.next_page_number }}'>다음</a>
     </li>
     {% endif %}
   </ul>
+  {% else %}
+  <ul>
+    <li>
+      <span>아이디어가 없습니다.</span>
+    </li>
+  </ul>
+  {% endif %}
 </div>
 <script src="{% static 'idea/js/pick.js' %}" defer></script>
 {% endblock %}
