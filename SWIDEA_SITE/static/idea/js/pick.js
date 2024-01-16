@@ -13,7 +13,7 @@ function togglePickBtn(){
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'), // Add function to get CSRF token
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
                 body: JSON.stringify({}),
             })
@@ -42,7 +42,7 @@ function changeInterest() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken'), // Add function to get CSRF token
+                        'X-CSRFToken': getCookie('csrftoken'),
                     },
                     body: JSON.stringify({}),
                 })
@@ -59,7 +59,7 @@ function changeInterest() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken'), // Add function to get CSRF token
+                        'X-CSRFToken': getCookie('csrftoken'),
                     },
                     body: JSON.stringify({}),
                 })

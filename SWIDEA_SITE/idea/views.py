@@ -1,12 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from .models import Idea
 from .forms import IdeaForm
 
 # Create your views here.
 def index(request):
     idea_list = Idea.objects.all()
+    sort_order = request.GET.get('sort-order')
+    if sort_order == 'name':
+        idea_list = idea_list.order_by('title')
+    elif sort_order == 'interest':
+        idea_list = idea_list.order_by('-interest')
+    elif sort_order == 'pick':
+        idea_list = idea_list.order_by('-pick')
+    elif sort_order == 'id':
+        idea_list = idea_list.order_by('pk')
+    elif sort_order == 'time':
+        idea_list = idea_list.order_by('-created_date')
     return render(request, 'idea/index.html', {'idea_list': idea_list})
 
 def create(request):

@@ -3,37 +3,48 @@
 
 {% block content %}
 <section>
-<!--정렬 form 구현-->
+  <form>
+    <select name='sort-order' onchange="this.form.submit()">
+      <option>--정렬기준--</option>
+      <option value='pick'>찜하기순</option>
+      <option value='name'>제목순</option>
+      <option value='interest'>관심도순</option>
+      <option value='id'>등록순</option>
+      <option value='time'>최신순</option>
+    </select>
+  </form>
 </section>
-<ul>
-  {% if idea_list %}
-    {%for idea in idea_list%}
-    <li>
-      {% if idea.image %}
-      <img src="{{idea.image.url}}"/>
-      {% else %}
-      <img src={% static 'idea/image/no_img.png' %}/>
-      {% endif %}
-      <a href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
-      <div class='interest-container' button-pk="{{ idea.pk }}">
-        <span>-</span>
-        <span>{{idea.interest}}</span>
-        <span>+</span>
-      </div>
-      <i class="pick-btn" button-pk="{{ idea.pk }}">
-        {% if idea.pick %}
-            pick
+<div id='idea-container'>
+  <ul>
+    {% if idea_list %}
+      {%for idea in idea_list%}
+      <li>
+        {% if idea.image %}
+        <img src="{{idea.image.url}}"/>
         {% else %}
-            Unpick
+        <img src={% static 'idea/image/no_img.png' %}/>
         {% endif %}
-      </i>
+        <a href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
+        <div class='interest-container' button-pk="{{ idea.pk }}">
+          <span>-</span>
+          <span>{{idea.interest}}</span>
+          <span>+</span>
+        </div>
+        <i class="pick-btn" button-pk="{{ idea.pk }}">
+          {% if idea.pick %}
+              pick
+          {% else %}
+              Unpick
+          {% endif %}
+        </i>
+      </li>
+      {% endfor %}
+    {% else %}
+    <li>
+      <span>아이디어가 없습니다.</span>
     </li>
-    {% endfor %}
-  {% else %}
-  <li>
-    <span>아이디어가 없습니다.</span>
-  </li>
-  {% endif %}
-</ul>
+    {% endif %}
+  </ul>
+</div>
 <script src="{% static 'idea/js/pick.js' %}" defer></script>
 {% endblock %}
