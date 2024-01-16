@@ -19,7 +19,8 @@ def create(request):
 
 def detail(request, pk):
     tool = get_object_or_404(DevTool, pk=pk)
-    return render(request, 'tool/tool_detail.html', {'tool': tool})
+    idea_list = tool.idea_set.all()
+    return render(request, 'tool/tool_detail.html', {'tool': tool, 'idea_list': idea_list})
 
 def modify(request, pk):
     tool = get_object_or_404(DevTool, pk=pk)

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
-# from tool.models import Devtool
+from tool.models import DevTool
 
 # Create your models here.
 class Idea(models.Model):
@@ -11,7 +11,7 @@ class Idea(models.Model):
     interest = models.IntegerField('아이디어 관심도', default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
     pick = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
-    # devtool = models.ForeignKey(DevTool, on_delete=models.CASCADE)
+    devtool = models.ForeignKey(DevTool, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

@@ -9,7 +9,13 @@
     </ul>
 </section>
 <section>
-    <span>{{review.content}}</span>
+    {% if idea_list %}
+        {% for idea in idea_list %}
+        <a href={% url 'idea:detail' pk=idea.id%}>{{idea.title}}</a>
+        {% endfor %}
+    {% else %}
+    <span>해당 개발툴을 사용하는 아이디어가 없습니다.</span>
+    {% endif %}
 </section>
 <section>
     <a href={% url 'tool:modify' pk=tool.id %} method='post'>수정</a>
