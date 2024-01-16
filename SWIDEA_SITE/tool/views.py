@@ -11,8 +11,8 @@ def create(request):
     if request.method == 'POST':
         form = DevToolForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('tool:index')
+            tool = form.save()
+            return redirect('tool:detail', pk=tool.id)
     else:
         form = DevToolForm()
     return render(request, 'tool/tool_create.html', {'form': form})

@@ -10,7 +10,7 @@
     </ul>
 </section>
 <section>
-    <span>{{review.content}}</span>
+    <a href={% url 'tool:detail' pk=idea.devtool.id %}>{{idea.devtool}}</a>
 </section>
 <section>
     <a href={% url 'idea:modify' pk=idea.id %} method='post'>수정</a>
