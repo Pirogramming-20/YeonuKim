@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+<!--정렬 form 구현-->
+</section>
+<ul>
+  {% if idea_list %}
+    {%for idea in idea_list%}
+    <li>
+      {% if idea.image %}
+      <img src="{{idea.image.url}}"/>
+      {% else %}
+      <img src={% static 'idea/image/no_img.png' %}/>
+      {% endif %}
+      <a>{{idea.title}}</a>
+      <span>{{idea.interest}}</span>
+    </li>
+    {% endfor %}
+  {% else %}
+  <li>
+    <span>아이디어가 없습니다.</span>
+  </li>
+  {% endif %}
+</ul>
+{% endblock %}
