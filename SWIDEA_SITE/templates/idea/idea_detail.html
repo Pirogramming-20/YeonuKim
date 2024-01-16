@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section>
+    <ul>
+        <li><span>아이디어명: {{ idea.title }}</span></li>
+        <li><span>내용: {{ idea.content }}</span></li>
+        <li><span>관심도: {{ idea.interest }}</span></li>
+        <li><span>찜: {{idea.pick}}</span></li>
+    </ul>
+</section>
+<section>
+    <span>{{review.content}}</span>
+</section>
+<section>
+    <a href={% url 'idea:modify' pk=idea.id %} method='post'>수정</a>
+    <a href={% url 'idea:index' %}>목록</a>
+    <form action={% url 'idea:delete' pk=idea.id %} method="post">
+        {% csrf_token %}
+        <button>삭제</button>
+    </form>
+</section>
+{% endblock %}

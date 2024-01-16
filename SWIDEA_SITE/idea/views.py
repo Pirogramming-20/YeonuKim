@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Idea
 from .forms import IdeaForm
 
@@ -16,3 +16,24 @@ def create(request):
     else:
         form = IdeaForm()
     return render(request, 'idea/idea_create.html', {'form': form})
+
+def detail(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+    return render(request, 'idea/idea_detail.html', {'idea': idea})
+
+def modify(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+    if request.method == 'POST':
+        form = IdeaForm(request.POST, request.FILES, instance=idea)
+        if form.is_valid():
+            form.save()
+            return redirect('idea:detail', pk=pk)
+    else:
+        form=IdeaForm(instance=idea)
+    return render(request, 'idea/idea_modify.html', {'form': form, 'pk': pk})
+
+def delete(request, pk):
+    if request.method == 'POST':
+        idea = get_object_or_404(Idea, pk=pk)
+        idea.delete()
+    return redirect('idea:index')

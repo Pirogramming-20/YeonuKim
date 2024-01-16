@@ -14,7 +14,7 @@
       {% else %}
       <img src={% static 'idea/image/no_img.png' %}/>
       {% endif %}
-      <a>{{idea.title}}</a>
+      <a href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
       <span>{{idea.interest}}</span>
     </li>
     {% endfor %}
