@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section>
+    <ul>
+        <li><span>이름: {{ tool.name }}</span></li>
+        <li><span>종류: {{ tool.type }}</span></li>
+        <li><span>개발툴 설명: {{ tool.desc }}</span></li>
+    </ul>
+</section>
+<section>
+    <span>{{review.content}}</span>
+</section>
+<section>
+    <a href={% url 'tool:modify' pk=tool.id %} method='post'>수정</a>
+    <a href={% url 'tool:index' %}>목록</a>
+    <form action={% url 'tool:delete' pk=tool.id %} method="post">
+        {% csrf_token %}
+        <button>삭제</button>
+    </form>
+</section>
+{% endblock %}

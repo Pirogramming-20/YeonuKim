@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+<!--정렬 form 구현-->
+</section>
+<ul>
+  {% if tool_list %}
+    {%for tool in tool_list%}
+    <li>
+      <a href={% url 'tool:detail' pk=tool.id %}>{{tool.name}}</a>
+      <span>{{tool.type}}</span>
+      <span>{{tool.desc}}</span>
+    </li>
+    {% endfor %}
+  {% else %}
+  <li>
+    <span>개발툴이 없습니다.</span>
+  </li>
+  {% endif %}
+</ul>
+{% endblock %}
