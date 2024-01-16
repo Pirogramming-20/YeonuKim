@@ -40,9 +40,20 @@ def delete(request, pk):
         idea.delete()
     return redirect('idea:index')
 
-@csrf_exempt
 def makePick(request, pk):
     idea = get_object_or_404(Idea, pk=pk)
     idea.pick = not idea.pick
     idea.save()
     return JsonResponse({'pick_status': idea.pick})
+
+def addInterest(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+    idea.interest += 1
+    idea.save()
+    return JsonResponse({'interest_status': idea.interest})
+
+def minusInterest(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+    idea.interest -= 1
+    idea.save()
+    return JsonResponse({'interest_status': idea.interest})

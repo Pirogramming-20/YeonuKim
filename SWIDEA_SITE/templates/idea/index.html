@@ -15,12 +15,16 @@
       <img src={% static 'idea/image/no_img.png' %}/>
       {% endif %}
       <a href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
-      <span>{{idea.interest}}</span>
+      <div class='interest-container' button-pk="{{ idea.pk }}">
+        <span>-</span>
+        <span>{{idea.interest}}</span>
+        <span>+</span>
+      </div>
       <i class="pick-btn" button-pk="{{ idea.pk }}">
         {% if idea.pick %}
-            Unpick
+            pick
         {% else %}
-            Pick
+            Unpick
         {% endif %}
       </i>
     </li>
