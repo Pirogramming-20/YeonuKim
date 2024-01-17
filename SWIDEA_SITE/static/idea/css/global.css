@@ -65,3 +65,7 @@ select:focus {
     color: #222;
     outline: none;
 }
+
+.errorlist{
+  color: yellow;
+}
