@@ -8,11 +8,9 @@ function sendSearchRequest(keyword){
         },
     })
     .then(response => {
-        console.log(response)
         return response.json();
     })
     .then(data => {
-        console.log(data)
         resultContainer.innerHTML = data.html_from_view;
     })
 }
@@ -21,13 +19,11 @@ function searchDevTool() {
     const searchBtn = document.getElementById('search-btn');
     const keyword = document.getElementById('search-bar');
     const keywordInput = document.getElementById('keyword-input');
-    searchBtn.addEventListener('click', ()=>{   
-        console.log('Click')     
+    searchBtn.addEventListener('click', ()=>{       
         keywordInput.value = keyword.value;
         sendSearchRequest(keyword);
     });
     keyword.addEventListener('input', ()=>{
-        console.log('type')
         keywordInput.value = keyword.value;
         sendSearchRequest(keyword);
     });

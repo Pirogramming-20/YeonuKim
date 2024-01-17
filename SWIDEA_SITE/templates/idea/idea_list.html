@@ -1,0 +1,56 @@
+{% load static %}
+{% if idea_list %}
+<ul>    
+    {%for idea in idea_list%}
+    <li>
+      {% if idea.image %}
+      <img src="{{idea.image.url}}"/>
+      {% else %}
+      <img src={% static 'idea/image/no_img.png' %}/>
+      {% endif %}
+      <a href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
+      <div class='interest-container' button-pk="{{ idea.pk }}">
+        <span>-</span>
+        <span>{{idea.interest}}</span>
+        <span>+</span>
+      </div>
+      <i class="pick-btn" button-pk="{{ idea.pk }}">
+        {% if idea.pick %}
+            pick
+        {% else %}
+            Unpick
+        {% endif %}
+      </i>
+    </li>
+    {% endfor %}
+</ul>
+<ul>
+  {% if idea_list.has_previous %}
+  <li>
+    <a href='?page={{ idea_list.previous_page_number }}'>이전</a>
+  </li>
+  {% endif %}
+  {% for page_num in idea_list.paginator.page_range %}
+    {% if page_num == idea_list.number %}
+    <li class="current_page">
+      <a href='?page={{page_num}}'>{{page_num}}</a>
+    </li>
+    {% else %}
+    <li>
+      <a href='?page={{page_num}}'>{{page_num}}</a>
+    </li>
+    {% endif %}
+  {% endfor %}
+  {% if idea_list.has_next %}
+  <li>
+    <a href='?page={{ idea_list.next_page_number }}'>다음</a>
+  </li>
+  {% endif %}
+</ul>
+{% else %}
+<ul>
+  <li>
+    <span>아이디어가 없습니다.</span>
+  </li>
+</ul>
+{% endif %}

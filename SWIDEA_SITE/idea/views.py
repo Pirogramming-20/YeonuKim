@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from .models import Idea
@@ -7,7 +9,7 @@ from .forms import IdeaForm
 # Create your views here.
 def index(request):
     idea_list = Idea.objects.all()
-    sort_order = request.GET.get('sort-order')
+    sort_order = request.GET.get('order')
     if sort_order == 'name':
         idea_list = idea_list.order_by('title')
     elif sort_order == 'interest':
@@ -15,10 +17,19 @@ def index(request):
     elif sort_order == 'pick':
         idea_list = idea_list.order_by('-pick')
     elif sort_order == 'id':
-        idea_list = idea_list.order_by('pk')
+        idea_list = idea_list.order_by('created_date')
     elif sort_order == 'time':
         idea_list = idea_list.order_by('-created_date')
 
+    is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest"
+    if is_ajax_request:
+        html = render_to_string(
+            template_name="idea/idea_list.html", 
+            context={"idea_list": idea_list}
+        )
+        data_dict = {"html_from_view": html}
+        return JsonResponse(data_dict) 
+    
     page = request.GET.get('page', '1')
     paginator = Paginator(idea_list, 4)
     return render(request, 'idea/index.html', {'idea_list': paginator.get_page(page)})

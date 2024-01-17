@@ -7,25 +7,20 @@ from .forms import DevToolForm
 
 # Create your views here.
 def index(request):
-    print('index')
     tool_list = DevTool.objects.all()
     keyword = request.GET.get('keyword', '')
     if keyword:
         tool_list = tool_list.filter(
             Q(name__icontains=keyword)
         )
-
     is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest"
-    
     if is_ajax_request:
-        print("ajax")
         html = render_to_string(
             template_name="tool/tool_list.html", 
             context={"tool_list": tool_list}
         )
         data_dict = {"html_from_view": html}
-        return JsonResponse(data_dict)
-        
+        return JsonResponse(data_dict)        
     return render(request, 'tool/tool_index.html', {'tool_list': tool_list})
 
 def create(request):
