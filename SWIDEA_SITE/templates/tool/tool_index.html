@@ -12,5 +12,5 @@
 <form id='search-form' method='get' action='{% url "tool:index" %}'>
   <input type='hidden' id='keyword-input' name='keyword' value="{{ keyword|default_if_none:''}}"/>
 </form>
-<script src="{% static 'idea/js/search.js' %}" defer></script>
+<script src="{% static 'idea/js/tool.js' %}" defer></script>
 {% endblock %}
