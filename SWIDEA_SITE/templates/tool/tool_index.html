@@ -3,21 +3,14 @@
 
 {% block content %}
 <section>
-<!--정렬 form 구현-->
+  <input type='text' id='search-bar' value="{{keyword|default_if_none:'' }}"/>
+  <button id='search-btn'>검색</button>
 </section>
-<ul>
-  {% if tool_list %}
-    {%for tool in tool_list%}
-    <li>
-      <a href={% url 'tool:detail' pk=tool.id %}>{{tool.name}}</a>
-      <span>{{tool.type}}</span>
-      <span>{{tool.desc}}</span>
-    </li>
-    {% endfor %}
-  {% else %}
-  <li>
-    <span>개발툴이 없습니다.</span>
-  </li>
-  {% endif %}
+<ul id="search-container">
+  {% include 'tool/tool_list.html' %}
 </ul>
+<form id='search-form' method='get' action='{% url "tool:index" %}'>
+  <input type='hidden' id='keyword-input' name='keyword' value="{{ keyword|default_if_none:''}}"/>
+</form>
+<script src="{% static 'idea/js/search.js' %}" defer></script>
 {% endblock %}
