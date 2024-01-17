@@ -21,7 +21,14 @@ function togglePickBtn() {
             })
             .then(response => response.json())
             .then(data => {
-                button.innerText = data.pick_status ? 'Pick' : 'Unpick';
+                if (data.pick_status) {
+                    button.classList.add('yellow-star');
+                    button.classList.remove('black-star');
+                }
+                else{
+                    button.classList.add('black-star');
+                    button.classList.remove('yellow-star');
+                }
             });
         }
     });

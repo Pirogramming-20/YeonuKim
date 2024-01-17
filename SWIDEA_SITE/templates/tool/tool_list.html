@@ -1,9 +1,9 @@
 {% if tool_list %}
   {%for tool in tool_list%}
   <li>
-    <a href={% url 'tool:detail' pk=tool.id %}>{{tool.name}}</a>
-    <span>{{tool.type}}</span>
-    <span>{{tool.desc}}</span>
+    <a class='tool-name' href={% url 'tool:detail' pk=tool.id %}>{{tool.name}}</a>
+    <span class='tool-type'>{{tool.type}}</span>
+    <span class='tool-desc'>{{tool.desc}}</span>
   </li>
   {% endfor %}
   {% else %}

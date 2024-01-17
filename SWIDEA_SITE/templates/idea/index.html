@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<section>
+<section class='sort-container'>
   <form id='sort-form' method='get' action='{% url "idea:index %"}' value='{{order|default_if_none:""}}'>
     <select id='sort-select' name='order'>
       <option>--정렬기준--</option>

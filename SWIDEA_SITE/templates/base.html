@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -8,6 +9,14 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>my SW IDEA site</title>
+    <link href={% static 'idea/css/variables.css' %} rel='stylesheet'/>
+    <link href={% static 'idea/css/reset.css' %} rel='stylesheet'/>
+    <link href={% static 'idea/css/global.css' %} rel='stylesheet'/>
+    <link href={% static 'idea/css/index.css' %} rel='stylesheet'/>
+    <link href={% static 'idea/css/form.css' %} rel='stylesheet'/>
+    <link href={% static 'idea/css/detail.css' %} rel='stylesheet'/>
+    <link href={% static 'tool/css/index.css' %} rel='stylesheet'/>
+    <link href={% static 'tool/css/detail.css' %} rel='stylesheet'/>
   </head>
   <body>
     {% include 'navbar.html'%}

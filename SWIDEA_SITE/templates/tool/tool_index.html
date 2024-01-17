@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<section>
+<section class='search-bar-wrapper'>
   <input type='text' id='search-bar' value="{{keyword|default_if_none:'' }}"/>
   <button id='search-btn'>검색</button>
 </section>
@@ -12,5 +12,5 @@
 <form id='search-form' method='get' action='{% url "tool:index" %}'>
   <input type='hidden' id='keyword-input' name='keyword' value="{{ keyword|default_if_none:''}}"/>
 </form>
-<script src="{% static 'idea/js/tool.js' %}" defer></script>
+<script src="{% static 'tool/js/tool.js' %}" defer></script>
 {% endblock %}

@@ -1,30 +1,35 @@
 {% load static %}
+
 {% if idea_list %}
-<ul>    
+<ul class='idea-card-container'>    
     {%for idea in idea_list%}
-    <li>
+    <li class='idea-card'>
+      <div class='idea-card-image'>
       {% if idea.image %}
       <img src="{{idea.image.url}}"/>
-      {% else %}
-      <img src={% static 'idea/image/no_img.png' %}/>
-      {% endif %}
-      <a href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
-      <div class='interest-container' button-pk="{{ idea.pk }}">
-        <span>-</span>
-        <span>{{idea.interest}}</span>
-        <span>+</span>
-      </div>
-      <i class="pick-btn" button-pk="{{ idea.pk }}">
-        {% if idea.pick %}
-            pick
         {% else %}
-            Unpick
+        <img src={% static 'idea/image/no_img.png' %}/>
         {% endif %}
-      </i>
+        {% if idea.pick %}
+          <i class="pick-btn yellow-star" button-pk="{{ idea.pk }}"></i>
+        {% else %}
+          <i class="pick-btn black-star" button-pk="{{ idea.pk }}"></i>
+        {% endif %}
+      </div>
+      <div class='idea-card-content'>
+        <a class='idea-card-title' href={% url 'idea:detail' pk=idea.id %}>{{idea.title}}</a>
+        <span>관심도</span>
+        <div class='interest-container' button-pk="{{ idea.pk }}">
+          <span class='minus-button'>-</span>
+          <span class='idea-interest'>{{idea.interest}}</span>
+          <span class='plus-button'>+</span>
+        </div>
+        <span>개발툴: {{idea.devtool.name}}<span>
+      </div>
     </li>
     {% endfor %}
 </ul>
-<ul>
+<ul class='idea-page'>
   {% if idea_list.has_previous %}
   <li>
     <a href='?page={{ idea_list.previous_page_number }}'>이전</a>
