@@ -10,6 +10,7 @@ from .forms import IdeaForm
 def index(request):
     idea_list = Idea.objects.all()
     sort_order = request.GET.get('order')
+    page = request.GET.get('page', '1')
     if sort_order == 'name':
         idea_list = idea_list.order_by('title')
     elif sort_order == 'interest':
@@ -20,18 +21,17 @@ def index(request):
         idea_list = idea_list.order_by('created_date')
     elif sort_order == 'time':
         idea_list = idea_list.order_by('-created_date')
+    paginator = Paginator(idea_list, 4)
 
     is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest"
     if is_ajax_request:
         html = render_to_string(
             template_name="idea/idea_list.html", 
-            context={"idea_list": idea_list}
+            context={"idea_list": paginator.get_page(page)}
         )
         data_dict = {"html_from_view": html}
         return JsonResponse(data_dict) 
-    
-    page = request.GET.get('page', '1')
-    paginator = Paginator(idea_list, 4)
+
     return render(request, 'idea/index.html', {'idea_list': paginator.get_page(page)})
 
 def create(request):

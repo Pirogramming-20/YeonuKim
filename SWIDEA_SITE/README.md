@@ -8,4 +8,3 @@
     - AWS IAM 계정 및 인스턴스 생성
     - 탄력적 IP 설정
     - nginx, gunicorn 설치 및 환경 설정
-    - ajax 포스트 정렬과 페이지네이션 충돌 문제
