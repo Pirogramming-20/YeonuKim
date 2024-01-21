@@ -1,0 +1,6 @@
+{% block content %}
+<nav>
+    <a href={% url "post:index" %}>Pirostagram</a>
+    <a href={% url "post:create" %} method='post'>글쓰기</a>
+</nav>
+{% endblock %}

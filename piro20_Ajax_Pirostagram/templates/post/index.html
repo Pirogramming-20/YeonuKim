@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul>
+  {% if post_list %}
+    {%for post in post_list%}
+    <li>
+      <a href={% url 'post:detail' pk=post.id %}>{{post.title}}</a>
+      <span>{{post.created_date}}</span>
+    </li>
+    {% endfor %}
+  {% else %}
+  <li>
+    <span>리뷰가 없습니다.</span>
+  </li>
+  {% endif %}
+</ul>
+{% endblock %}
