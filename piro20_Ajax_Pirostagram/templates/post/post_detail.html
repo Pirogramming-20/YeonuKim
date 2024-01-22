@@ -18,4 +18,20 @@
 <section>
     <span>{{post.content}}</span>
 </section>
+<section>
+    <div>
+        <textarea id='comment-content'></textarea>
+        <button id='comment-button' onClick='onClickComment({{post.id}})'>댓글 작성</button>
+    </div>
+</section>
+<section>
+    <ul id='comment-container'>
+    {% for comment in comment_list %}
+    <li id='comment-{{comment.id}}'>
+        <span>{{comment.content}}</span>
+        <button class='comment-delete-button' onClick='onClickDelete({{comment.id}})'>댓글 삭제</button>
+    </li>
+    {% endfor %}
+    </ul>
+</section>
 {% endblock %}
