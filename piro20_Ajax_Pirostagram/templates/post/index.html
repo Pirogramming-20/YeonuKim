@@ -6,6 +6,7 @@
     <li>
       <a href={% url 'post:detail' pk=post.id %}>{{post.title}}</a>
       <span>{{post.created_date}}</span>
+      <button id='like-button-{{post.id}}' onClick="onClickLike({{post.id}})">좋아요 {{ post.like }}</button>
     </li>
     {% endfor %}
   {% else %}

@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+import json
 from .models import Post
 from .forms import PostForm
 
@@ -37,4 +39,14 @@ def delete(request, pk):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=pk)
         post.delete()
+    return redirect('post:index')
+
+def like(request):
+    if request.method =='POST':
+        request_json = json.loads(request.body)
+        post_id = request_json['id']
+        post = get_object_or_404(Post, pk=post_id)
+        post.like += 1 
+        post.save()
+        return JsonResponse({'id':post_id, 'count':post.like})
     return redirect('post:index')
