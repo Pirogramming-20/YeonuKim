@@ -48,9 +48,9 @@ def like(request):
         request_json = json.loads(request.body)
         post_id = request_json['id']
         post = get_object_or_404(Post, pk=post_id)
-        post.like += 1 
+        post.like = not post.like
         post.save()
-        return JsonResponse({'id':post_id, 'count':post.like})
+        return JsonResponse({'id':post_id, 'state':post.like})
     return redirect('post:index')
 
 def create_comment(request):

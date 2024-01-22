@@ -6,7 +6,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     created_date = models.DateTimeField(default=timezone.now)
     content = models.TextField(max_length=8191)
-    like = models.PositiveIntegerField(default=0)
+    like = models.BooleanField(default=False)
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

@@ -24,10 +24,13 @@ const onClickLike = (id) => {
 
 requestLike.onreadystatechange = ()=>{
     if (requestLike.readyState === XMLHttpRequest.DONE && requestLike.status < 400) {
-        const {id, count} = JSON.parse(requestLike.response);
+        const {id, state} = JSON.parse(requestLike.response);
         const likeBtn = document.getElementById(`like-button-${id}`);
 
-        likeBtn.innerText = `${count}`;
+        if (state === true)
+        likeBtn.innerText = `좋아요 취소`;
+        else
+        likeBtn.innerText = `좋아요`;
     }   
 }
 
